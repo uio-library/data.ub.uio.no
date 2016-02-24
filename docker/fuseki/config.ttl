@@ -1,0 +1,90 @@
+# Reference:
+# http://jena.apache.org/documentation/serving_data/#fuseki-configuration-file
+
+@prefix :        <#> .
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix text:    <http://jena.apache.org/text#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+# Server description
+[] rdf:type fuseki:Server ;
+   # Timeout - server-wide default: milliseconds.
+   # Format 1: "1000" -- 1 second timeout
+   # Format 2: "10000,60000" -- 10s timeout to first result, then 60s timeout for the rest of query.
+   # See java doc for ARQ.queryTimeout
+   # ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "10000" ] ;
+   ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "60000" ] ;  # 60 seconds
+
+   # ja:loadClass "your.code.Class" ;
+
+   fuseki:services (
+     <#service_text_tdb>
+   ) .
+
+# Declaration additional assembler items.
+[] ja:loadClass "org.apache.jena.tdb.TDB" .
+tdb:DatasetTDB  rdfs:subClassOf  ja:RDFDataset .
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+[] ja:loadClass "org.apache.jena.query.text.TextQuery" .
+text:TextDataset      rdfs:subClassOf   ja:RDFDataset .
+text:TextIndexLucene  rdfs:subClassOf   text:TextIndex .
+
+
+## ---------------------------------------------------------------
+## This service offers SPARQL Query on a TDB dataset 'ds'
+
+<#service_text_tdb> rdf:type fuseki:Service ;
+    # URI of the dataset -- http://host:port/ds
+    fuseki:name                        "ds" ; 
+    fuseki:serviceQuery                "sparql" ;
+    fuseki:serviceQuery                "query" ;
+    fuseki:serviceUpdate               "update" ;
+    fuseki:serviceUpload               "upload" ;
+    fuseki:serviceReadWriteGraphStore  "data" ;     
+    fuseki:serviceReadGraphStore       "get" ;
+    fuseki:dataset                     <#dataset> ;
+    .
+
+<#dataset> a text:TextDataset ;
+    text:dataset   <#datasetTdb> ;
+    text:index     <#indexLucene> ;
+    .
+
+<#datasetTdb> a tdb:DatasetTDB ;
+    tdb:location "/fuseki/tdb" ;
+    tdb:unionDefaultGraph true ;
+    .
+
+<#indexLucene> a text:TextIndexLucene ;
+    text:directory <file:/fuseki/index> ;
+    text:storeValues true;  ## Required for Skosmos 1.4+
+    # text:directory "mem" ;
+    text:entityMap <#entMap> ;
+    .
+
+# Text index configuration for Skosmos 0.6 and above (requires Fuseki 1.1.1+)
+<#entMap> a text:EntityMap ;
+    text:entityField      "uri" ;
+    text:graphField       "graph" ; ## enable graph-specific indexing
+    text:defaultField     "pref" ;  ## Must be defined in the text:map
+    text:uidField         "uid" ;  ## recommended for Skosmos 1.4+
+    text:langField        "lang" ;  ## required for Skosmos 1.4+
+    text:map (
+         # skos:prefLabel
+         [ text:field "pref" ;
+           text:predicate skos:prefLabel ;
+           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
+         # skos:altLabel
+         [ text:field "alt" ;
+           text:predicate skos:altLabel ;
+           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
+         # skos:hiddenLabel
+         [ text:field "hidden" ;
+           text:predicate skos:hiddenLabel ;
+           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
+         ) .

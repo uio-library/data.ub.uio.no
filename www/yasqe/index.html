@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YASQE</title>
+  <link href='//cdn.jsdelivr.net/g/yasqe@2.7.0(yasqe.min.css),yasr@2.6.2(yasr.min.css)' rel='stylesheet' type='text/css'/>
+  <link href="../site.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+  <h1>
+    <a href="/">data.ub.uio.no</a> &gt; sparql
+  </h1>
+
+  <p>
+    Endpoint: <tt>/sparql</tt>
+  </p>
+
+  <p>
+    Examples: Find
+    <a href='#' class="example" id="example1">graphs with concept counts</a> |
+    <a href='#' class="example" id="example2">lookup concept by term in all vocabularies</a> or
+    <a href='#' class="example" id="example3">in Realfagstermer only</a> |
+    <a href='#' class="example" id="example4">concepts with exact mappings</a>
+    | <a href='#' class="example" id="example5">concepts in Humord with more than two broader terms</a>
+    | <a href='#' class="example" id="example6">list all broader concepts</a>
+  </p>
+
+  <div id="yasqe"></div>
+  <div id="yasr"></div>
+
+  <p style="text-align: center; font-size: 80%;">
+    Editor powered by <a href="http://yasqe.yasgui.org/">YASQE</a> and <a href="http://yasr.yasgui.org/">YASR</a>.
+  </p>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src='//cdn.jsdelivr.net/yasr/2.6.2/yasr.bundled.min.js'></script>
+  <script src='//cdn.jsdelivr.net/yasqe/2.7.0/yasqe.bundled.min.js'></script>
+  <script src="app.js"></script>
+</body>
+</html>

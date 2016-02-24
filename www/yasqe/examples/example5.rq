@@ -1,0 +1,15 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE 
+{
+  GRAPH <http://data.ub.uio.no/humord>
+  {
+    SELECT ?broader (COUNT(DISTINCT ?narrower) AS ?count)
+    WHERE
+    {
+      ?broader skos:broader ?narrower .
+    }
+    GROUP BY ?broader
+  }
+  FILTER (?count > 2)
+}

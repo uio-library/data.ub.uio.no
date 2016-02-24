@@ -1,0 +1,3 @@
+[submodule "www/default/lodlive"]
+    path = www/default/lodlive
+    url = git://github.com/scriptotek/LodLive.git

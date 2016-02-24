@@ -1,0 +1,49 @@
+<?php
+
+// configuration for easyRDF
+define("VOCABULARIES_FILE", "vocabularies.ttl");
+
+// interface languages available, and the corresponding system locales
+$LANGUAGES = array(
+  'nb' => 'nb_NO.utf8',
+  'nn' => 'nn_NO.utf8',
+  'en' => 'en_GB.utf8',
+);
+
+// default SPARQL endpoint
+// a local Fuseki server is usually on localhost:3030
+define("DEFAULT_ENDPOINT", "http://fuseki:3030/public/sparql");
+
+// how many items (maximum) to retrieve in search methods by default
+define("DEFAULT_SEARCH_LIMIT", 100);
+
+// how many items (maximum) to retrieve in transitive property queries
+define("DEFAULT_TRANSITIVE_LIMIT", 1000);
+
+// a default location for Twig template rendering
+define("TEMPLATE_CACHE", "/tmp/skosmos-template-cache");
+
+// default sparql-query extension, or "Generic" for plain SPARQL 1.1
+// set to "JenaText" instead if you use Fuseki with jena-text index
+define("DEFAULT_SPARQL_DIALECT", "JenaText");
+
+// default email address to send the feedback
+define("FEEDBACK_ADDRESS", "");
+
+// email address to set as the envelope sender for feedback messages
+define("FEEDBACK_ENVELOPE_SENDER", "");
+
+// whether or not to log caught exceptions
+define ("LOG_CAUGHT_EXCEPTIONS", FALSE);
+
+# customize the service name
+define("SERVICE_NAME", "Skosmos");
+
+// customize the service logo by pointing to your logo here. 
+define("SERVICE_LOGO", "./resource/pics/logo.png");
+
+// customize the css by adding your own stylesheet
+define("CUSTOM_CSS", "resource/css/stylesheet.css");
+
+// Customize the base element. Set this if the automatic base url detection doesn't work. For example setups behind a proxy.
+define("BASE_HREF", "http://data.ub.uio.no/skosmos/");

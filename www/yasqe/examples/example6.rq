@@ -1,0 +1,9 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX : <http://data.ub.uio.no/humord/>
+
+SELECT ?parent ?label
+WHERE
+{
+  :c08246 skos:broader+ ?parent .
+  ?parent skos:prefLabel ?label .
+}

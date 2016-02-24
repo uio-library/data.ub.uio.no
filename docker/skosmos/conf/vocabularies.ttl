@@ -1,0 +1,104 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wv: <http://vocab.org/waiver/terms/norms> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosmos: <http://purl.org/net/skosmos#> .
+@prefix isothes: <http://purl.org/iso25964/skos-thes#> .
+@prefix : <#> .
+
+
+:humord a skosmos:Vocabulary, void:Dataset ;
+	dc:title "HUMORD"@fi,
+		"HUMORD"@sv,
+		"HUMORD"@en,
+		"HUMORD"@nb,
+		"HUMORD"@nn ;
+	dc:subject :cat_general ;
+	void:uriSpace "http://data.ub.uio.no/humord/";
+	skosmos:groupClass skos:Collection;
+	skosmos:groupClass isothes:ConceptGroup ;
+	skosmos:arrayClass isothes:ThesaurusArray ;
+	skosmos:language "nb";
+	skosmos:defaultLanguage "nb";
+	skosmos:shortName "HUME";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+        skosmos:showTopConcepts "true";
+	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:dataDump <http://data.ub.uio.no/dumps/humord.ttl> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/humord> .
+
+:usvd a skosmos:Vocabulary, void:Dataset ;
+	dc:title "UBOs emneregister til DDC"@fi,
+		"UBOs emneregister til DDC"@sv,
+		"UBOs emneregister til DDC"@en,
+		"UBOs emneregister til DDC"@nb ;
+	dc:subject :cat_general ;
+	void:uriSpace "http://data.ub.uio.no/usvd/";
+	skosmos:groupClass skos:Collection;
+	skosmos:language "nb";
+	skosmos:defaultLanguage "nb";
+	skosmos:shortName "USVD";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:dataDump <http://data.ub.uio.no/dumps/usvd.ttl> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/usvd> .
+
+:tekord a skosmos:Vocabulary, void:Dataset ;
+	dc:title "TEKORD"@fi,
+		"TEKORD"@sv,
+		"TEKORD"@en,
+		"TEKORD"@nb,
+		"TEKORD"@nn ;
+	dc:subject :cat_science ;
+	void:uriSpace "http://data.ub.uio.no/tekord/";
+	skosmos:groupClass skos:Collection;
+	skosmos:groupClass isothes:ConceptGroup ;
+	skosmos:arrayClass isothes:ThesaurusArray ;
+	skosmos:language "nb";
+	skosmos:defaultLanguage "nb";
+	skosmos:shortName "TEK";
+	skosmos:feedbackRecipient "support@ub.ntnu.no" ;
+        skosmos:showTopConcepts "true";
+	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	# void:dataDump <http://data.ub.uio.no/dumps/tekord.ttl> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/tekord> .
+
+:realfagstermer a skosmos:Vocabulary, void:Dataset ;
+	dc:title "Realfagstermer"@fi,
+		"Realfagstermer"@sv,
+		"Realfagstermer"@en,
+		"Realfagstermer"@nb ;
+	dc:subject :cat_science ;
+	void:uriSpace "http://data.ub.uio.no/realfagstermer/";
+	skosmos:groupClass skos:Collection;
+	skosmos:language "nb", "nn", "en", "la";
+	skosmos:defaultLanguage "nb";
+	skosmos:shortName "REAL";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:dataDump <http://data.ub.uio.no/dumps/realfagstermer.ttl> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/realfagstermer> .
+
+
+:categories a skos:ConceptScheme;
+	skos:prefLabel "Skosmos Vocabulary Categories"@en .
+
+:cat_general a skos:Concept ;
+	skos:topConceptOf :categories ;
+	skos:inScheme :categories ;
+	skos:prefLabel "Yleiskäsitteet"@fi,
+		"Allmänna begrepp"@sv,
+		"General concepts"@en,
+		"Generelle begreper"@nb .
+
+:cat_science a skos:Concept ;
+	skos:topConceptOf :categories ;
+	skos:inScheme :categories ;
+	skos:prefLabel "Realfag og teknikk"@sv,
+	"Science and engineering"@en .
