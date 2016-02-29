@@ -22,8 +22,10 @@ yum -y update && yum -y install \
   ctags
 
 # chkconfig ntpd on
-ntpdate no.pool.ntp.org
-\cp /usr/share/zoneinfo/UTC /etc/localtime
+service ntpd stop
+ntpdate ntp.uio.no
+\cp /usr/share/zoneinfo/Europe/Oslo /etc/localtime
+service ntpd start
 
 hash docker 2>/dev/null || {
 	# Ref: https://docs.docker.com/engine/installation/linux/rhel/
@@ -89,7 +91,6 @@ hash pip 2>/dev/null || {
 # docker-compose up -d
 
 # Apache config
-# chkconfig httpd on
 \cp /opt/data.ub/apache/000-default.conf /etc/httpd/conf.d/000-default.conf
 \cp /opt/data.ub/apache/001-fuseki.conf /etc/httpd/conf.d/001-fuseki.conf
 \cp /opt/data.ub/apache/002-skosmos.conf /etc/httpd/conf.d/002-skosmos.conf
@@ -98,7 +99,8 @@ sed -i 's|DocumentRoot "/var/www/html"|DocumentRoot "/opt/data.ub/www/default"|'
 sed -i 's|<Directory "/var/www">|<Directory "/opt/data.ub/www">|' /etc/httpd/conf/httpd.conf
 sed -i 's|<Directory "/var/www/html">|<Directory "/opt/data.ub/www/default">|' /etc/httpd/conf/httpd.conf
 
-apachectl restart
-
 chown root:vagrant /opt/data.ub
 chmod g+w /opt/data.ub
+
+chkconfig httpd on
+apachectl restart
