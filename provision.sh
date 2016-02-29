@@ -27,11 +27,23 @@ hash docker 2>/dev/null || {
 	# Ref: https://docs.docker.com/engine/installation/linux/rhel/
 	echo "Installing docker"
 
-	curl -fsSL https://get.docker.com/ | sh
+	tee /etc/yum.repos.d/docker.repo <<-EOF
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+
+	yum update && yum install docker-engine
 	service docker start
 
+	# curl -fsSL https://get.docker.com/ | sh
+	# service docker start
+
 	# Start at boot
-	chkconfig docker on
+	# chkconfig docker on
 
 	# Let the 'vagrant' user use Docker without sudo
 	usermod -aG docker vagrant
