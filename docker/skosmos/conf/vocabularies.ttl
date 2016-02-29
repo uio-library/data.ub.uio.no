@@ -14,11 +14,11 @@
 
 
 :humord a skosmos:Vocabulary, void:Dataset ;
-	dc:title "HUMORD"@fi,
-		"HUMORD"@sv,
-		"HUMORD"@en,
-		"HUMORD"@nb,
-		"HUMORD"@nn ;
+	dc:title "Humord"@fi,
+		"Humord"@sv,
+		"Humord"@en,
+		"Humord"@nb,
+		"Humord"@nn ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/humord/";
 	skosmos:groupClass skos:Collection;
@@ -50,11 +50,11 @@
 	skosmos:sparqlGraph <http://data.ub.uio.no/usvd> .
 
 :tekord a skosmos:Vocabulary, void:Dataset ;
-	dc:title "TEKORD"@fi,
-		"TEKORD"@sv,
-		"TEKORD"@en,
-		"TEKORD"@nb,
-		"TEKORD"@nn ;
+	dc:title "Tekord"@fi,
+		"Tekord"@sv,
+		"Tekord"@en,
+		"Tekord"@nb,
+		"Tekord"@nn ;
 	dc:subject :cat_science ;
 	void:uriSpace "http://data.ub.uio.no/tekord/";
 	skosmos:groupClass skos:Collection;
@@ -65,7 +65,7 @@
 	skosmos:shortName "TEK";
 	skosmos:feedbackRecipient "support@ub.ntnu.no" ;
         skosmos:showTopConcepts "true";
-	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:sparqlEndpoint <http://localhost/sparql> ;
 	# void:dataDump <http://data.ub.uio.no/dumps/tekord.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/tekord> .
 
@@ -81,10 +81,25 @@
 	skosmos:defaultLanguage "nb";
 	skosmos:shortName "REAL";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
-	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:sparqlEndpoint <http://localhost/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/realfagstermer.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/realfagstermer> .
 
+:mrtermer a skosmos:Vocabulary, void:Dataset ;
+	dc:title "Menneskerettighetstermer"@fi,
+		"Menneskerettighetstermer"@sv,
+		"Human Rights Terms"@en,
+		"Menneskerettighetstermer"@nb ;
+	dc:subject :cat_general ;
+	void:uriSpace "http://data.ub.uio.no/mrtermer/";
+	skosmos:groupClass skos:Collection;
+	skosmos:language "en";
+	skosmos:defaultLanguage "en";
+	skosmos:shortName "MR";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:dataDump <http://data.ub.uio.no/dumps/mrtermer.ttl> ;
+	void:sparqlEndpoint <http://localhost/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
 
 :categories a skos:ConceptScheme;
 	skos:prefLabel "Skosmos Vocabulary Categories"@en .
