@@ -17,7 +17,9 @@ yum -y update && yum -y install \
   vim \
   git \
   zip \
-  python-setuptools
+  python-setuptools \
+  bash-completion \
+  ctags
 
 # chkconfig ntpd on
 ntpdate no.pool.ntp.org
