@@ -23,12 +23,14 @@ help() {
   echo -e -n "$BLUE"
   echo "   > build [name] - To build all the Docker images (or just one)"
   echo "   > up - Up all services"
-  echo "   > reload - Remove, build and serve"
-  echo "   > stop - Stop the container"
-  echo "   > start - Start the container"
-  echo "   > status - Show status"
-  echo "   > remove - Remove containers"
+  echo "   > reload [name] - Remove, build and serve"
+  # echo "   > stop - Stop the container"
+  # echo "   > start - Start the container"
+  echo "   > status [name] - Show status"
+  # echo "   > remove - Remove containers"
   echo "   > help - Display this help"
+  echo "   > varnishlog - Attach to varnishlog"
+  echo "   > shell [name] - Start bash shell in running container"
   echo -e -n "$NORMAL"
   echo "-----------------------------------------------------------------------"
 
@@ -42,7 +44,7 @@ build() {
 }
 
 up() {
-  log "Solr serve"
+  log "Starting all services"
   docker-compose up -d
 
   [ $? != 0 ] && error "Serve failed !" && exit 105
@@ -88,14 +90,13 @@ reload() {
 
 status() {
   if [[ -z "$EXTRAS" ]]; then
-    error "Please specify a service"
-    exit 1
+    EXTRAS=$(docker-compose config --services)
   fi
   for service in $EXTRAS; do
     containerid=$(docker-compose ps -q "$service" | cut -c 1-12)
     imageid=$(docker inspect -f {{.Image}} "$containerid" | cut -c 1-10)
     state=$(docker inspect -f {{.State.Running}} "$containerid")
-    log "Container id: $containerid, image id: $imageid, running: $state"
+    log "[$service]  Container: $containerid  Image: $imageid  Running: $state"
   done
   # docker ps -f "name=$IMAGE_NAME"
 }
@@ -103,6 +104,31 @@ status() {
 remove() {
   log "Removing previous containers"
   # docker rm -f $CONTAINER_NAME &> /dev/null || true
+}
+
+varnishlog() {
+  service=fuseki_cache
+  containerid1=$(docker-compose ps -q "$service" | cut -c 1-12)
+  if [[ -z "$containerid1" ]]; then
+    error "No active container found"
+    exit 1
+  fi
+  log "Attaching to container ${containerid1}"
+  docker exec -ti ${containerid1} varnishlog
+}
+
+shell() {
+  if [[ -z "$EXTRAS" ]]; then
+    error "Please specify a service"
+    exit 1
+  fi
+  containerid1=$(docker-compose ps -q "$EXTRAS" | cut -c 1-12)
+  if [[ -z "$containerid1" ]]; then
+    error "No active container found"
+    exit 1
+  fi
+  log "Starting bash shell in container ${containerid1}"
+  docker exec -ti ${containerid1} env TERM=xterm bash -l
 }
 
 if [[ "$#" -eq "0" ]]; then

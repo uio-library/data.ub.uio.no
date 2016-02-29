@@ -11,10 +11,18 @@ jena:
 fuseki:
   build: fuseki
   restart: on-failure:3
-  ports:
-   - "3030:3030"
   volumes_from:
    - fuseki_data
+
+fuseki_cache:
+  build: fuseki_cache
+  links:
+   - fuseki
+  environment:
+   - VCL_CONFIG=/varnish.vcl
+   - CACHE_SIZE=256m
+  ports:
+   - "3030:80"
 
 # Skosmos service
 skosmos:
@@ -22,4 +30,5 @@ skosmos:
   ports:
    - "8000:80"
   links:
-  - fuseki
+   - fuseki
+
