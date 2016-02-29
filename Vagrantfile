@@ -15,7 +15,15 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "vm-uxl"
   config.vm.network :private_network, ip: "192.168.20.100"
-  config.vm.provision "shell", path: "provision.sh"
+
+  # Main provision script
+  config.vm.provision :shell, path: "provision.sh"
+
+  # We need to launch httpd after vagrant has mounted the synced folders,
+  # and we need to set SELinux into permissive mode since we can't add contexts
+  # to a Vagrant synced folder.
+  config.vm.provision :shell, :inline => "setenforce permissive && service httpd start", run: "always"
+
 
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
