@@ -86,18 +86,18 @@ hash pip 2>/dev/null || {
 	\curl -sS https://bootstrap.pypa.io/get-pip.py | python
 }
 
+hash doit 2>/dev/null || {
+	echo "Installing doit"
+
+	pip install doit
+}
+
 # echo "Starting docker-compose"
 # cd /opt/data.ub/docker
 # docker-compose up -d
 
 # Apache config
-\cp /opt/data.ub/apache/000-default.conf /etc/httpd/conf.d/000-default.conf
-\cp /opt/data.ub/apache/001-fuseki.conf /etc/httpd/conf.d/001-fuseki.conf
-\cp /opt/data.ub/apache/002-skosmos.conf /etc/httpd/conf.d/002-skosmos.conf
-\cp /opt/data.ub/apache/003-yasqe.conf /etc/httpd/conf.d/003-yasqe.conf
-sed -i 's|DocumentRoot "/var/www/html"|DocumentRoot "/opt/data.ub/www/default"|' /etc/httpd/conf/httpd.conf
-sed -i 's|<Directory "/var/www">|<Directory "/opt/data.ub/www">|' /etc/httpd/conf/httpd.conf
-sed -i 's|<Directory "/var/www/html">|<Directory "/opt/data.ub/www/default">|' /etc/httpd/conf/httpd.conf
+\cd /opt/data.ub/apache/ && ./install.sh
 
 chown root:vagrant /opt/data.ub
 chmod g+w /opt/data.ub
