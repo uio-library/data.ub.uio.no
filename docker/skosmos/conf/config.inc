@@ -37,7 +37,7 @@ define("FEEDBACK_ENVELOPE_SENDER", "");
 define ("LOG_CAUGHT_EXCEPTIONS", FALSE);
 
 # customize the service name
-define("SERVICE_NAME", "Skosmos");
+define("SERVICE_NAME", "Skosmos @ data.ub.uio.no");
 
 // customize the service logo by pointing to your logo here. 
 define("SERVICE_LOGO", "./resource/pics/logo.png");

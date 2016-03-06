@@ -14,35 +14,32 @@
 
 
 :humord a skosmos:Vocabulary, void:Dataset ;
-	dc:title "Humord"@fi,
-		"Humord"@sv,
-		"Humord"@en,
+	dc:title "Humord"@en,
 		"Humord"@nb,
 		"Humord"@nn ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/humord/";
-	skosmos:groupClass skos:Collection;
-	skosmos:groupClass isothes:ConceptGroup ;
+	skosmos:groupClass skos:Collection,
+		isothes:ConceptGroup ;
 	skosmos:arrayClass isothes:ThesaurusArray ;
 	skosmos:language "nb";
 	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "true";
 	skosmos:shortName "HUME";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
-        skosmos:showTopConcepts "true";
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/humord.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/humord> .
 
 :usvd a skosmos:Vocabulary, void:Dataset ;
-	dc:title "UBOs emneregister til DDC"@fi,
-		"UBOs emneregister til DDC"@sv,
-		"UBOs emneregister til DDC"@en,
-		"UBOs emneregister til DDC"@nb ;
+	dc:title "UBO subject index to Dewey"@en,
+		"UBOs emneregister til Dewey"@nb,
+		"UBO sitt emneregister til Dewey"@nn ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/usvd/";
-	skosmos:groupClass skos:Collection;
 	skosmos:language "nb";
 	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "false";
 	skosmos:shortName "USVD";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
@@ -50,35 +47,29 @@
 	skosmos:sparqlGraph <http://data.ub.uio.no/usvd> .
 
 :tekord a skosmos:Vocabulary, void:Dataset ;
-	dc:title "Tekord"@fi,
-		"Tekord"@sv,
-		"Tekord"@en,
+	dc:title "Tekord"@en,
 		"Tekord"@nb,
 		"Tekord"@nn ;
 	dc:subject :cat_science ;
 	void:uriSpace "http://data.ub.uio.no/tekord/";
-	skosmos:groupClass skos:Collection;
-	skosmos:groupClass isothes:ConceptGroup ;
-	skosmos:arrayClass isothes:ThesaurusArray ;
 	skosmos:language "nb";
 	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "true";
 	skosmos:shortName "TEK";
 	skosmos:feedbackRecipient "support@ub.ntnu.no" ;
-        skosmos:showTopConcepts "true";
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	# void:dataDump <http://data.ub.uio.no/dumps/tekord.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/tekord> .
 
 :realfagstermer a skosmos:Vocabulary, void:Dataset ;
-	dc:title "Realfagstermer"@fi,
-		"Realfagstermer"@sv,
-		"Realfagstermer"@en,
-		"Realfagstermer"@nb ;
+	dc:title "Realfagstermer"@en,
+		"Realfagstermer"@nb,
+		"Realfagstermer"@nn ;
 	dc:subject :cat_science ;
 	void:uriSpace "http://data.ub.uio.no/realfagstermer/";
-	skosmos:groupClass skos:Collection;
 	skosmos:language "nb", "nn", "en", "la";
 	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "false";
 	skosmos:shortName "REAL";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
@@ -86,15 +77,15 @@
 	skosmos:sparqlGraph <http://data.ub.uio.no/realfagstermer> .
 
 :mrtermer a skosmos:Vocabulary, void:Dataset ;
-	dc:title "Menneskerettighetstermer"@fi,
-		"Menneskerettighetstermer"@sv,
-		"Human Rights Terms"@en,
+	dc:title "Human Rights Terms"@en,
+		"Menneskerett-termar"@nn,
 		"Menneskerettighetstermer"@nb ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/mrtermer/";
 	skosmos:groupClass skos:Collection;
 	skosmos:language "en";
 	skosmos:defaultLanguage "en";
+	skosmos:showTopConcepts "false";
 	skosmos:shortName "MR";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:dataDump <http://data.ub.uio.no/dumps/mrtermer.ttl> ;
@@ -102,18 +93,20 @@
 	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
 
 :categories a skos:ConceptScheme;
-	skos:prefLabel "Skosmos Vocabulary Categories"@en .
+	skos:prefLabel "Vocabulary categories"@en ,
+		"Vokabular-kategorier"@nb ,
+		"Vokabular-kategoriar"@nn .
 
 :cat_general a skos:Concept ;
 	skos:topConceptOf :categories ;
 	skos:inScheme :categories ;
-	skos:prefLabel "Yleiskäsitteet"@fi,
-		"Allmänna begrepp"@sv,
-		"General concepts"@en,
-		"Generelle begreper"@nb .
+	skos:prefLabel "General"@en,
+		"Generelt"@nb,
+		"Generelt"@nn .
 
 :cat_science a skos:Concept ;
 	skos:topConceptOf :categories ;
 	skos:inScheme :categories ;
-	skos:prefLabel "Realfag og teknikk"@sv,
-	"Science and engineering"@en .
+	skos:prefLabel "Science and engineering"@en,
+		"Realfag og teknikk"@nb,
+		"Realfag og teknikk"@nn .
