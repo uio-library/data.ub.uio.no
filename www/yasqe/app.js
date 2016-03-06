@@ -9,7 +9,8 @@ var yasqe = YASQE(document.getElementById('yasqe'),
     "LIMIT 10",
   sparql: {
     showQueryButton: true,
-    endpoint: "/sparql"
+    endpoint: "/sparql",
+    requestMethod: "GET"
     /*defaultGraphs: ['http://data.ub.uio.no/rt']*/
   }
 });
