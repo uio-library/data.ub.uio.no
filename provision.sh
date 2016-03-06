@@ -19,7 +19,8 @@ yum -y update && yum -y install \
   zip \
   python-setuptools \
   bash-completion \
-  ctags
+  ctags \
+  bzip2
 
 # chkconfig ntpd on
 service ntpd stop
