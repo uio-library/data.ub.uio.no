@@ -27,10 +27,10 @@ yasqe.options.sparql.callbacks.complete = yasr.setResponse;
   yasqe.query();
 }*/
 
-$('.example').on('click', function (evt) {
-  var id = $(this).attr('id');
-  evt.preventDefault();
-  $.get('examples/' + id + '.rq').success(function(data) {
+$('#examples').on('change', function () {
+  console.log(this.value);
+  if (this.value == '') return;
+  $.get('examples/example' + parseInt(this.value, 10) + '.rq').success(function(data) {
     yasqe.setValue(data);
   });
 });

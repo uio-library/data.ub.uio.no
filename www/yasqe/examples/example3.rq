@@ -1,6 +1,6 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT ?subject ?predicate ?object
-FROM <http://data.ub.uio.no/rt>
+FROM <http://data.ub.uio.no/realfagstermer>
 WHERE
 {
   ?subject (skos:prefLabel|skos:altLabel) "Didaktikk"@nb ;
