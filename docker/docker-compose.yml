@@ -30,5 +30,5 @@ skosmos:
   ports:
    - "8000:80"
   links:
-   - fuseki
+   - fuseki_cache
 

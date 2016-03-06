@@ -29,7 +29,7 @@
 	skosmos:shortName "HUME";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
         skosmos:showTopConcepts "true";
-	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/humord.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/humord> .
 
@@ -45,7 +45,7 @@
 	skosmos:defaultLanguage "nb";
 	skosmos:shortName "USVD";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
-	void:sparqlEndpoint <http://fuseki:3030/ds/sparql> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/usvd.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/usvd> .
 
@@ -65,7 +65,7 @@
 	skosmos:shortName "TEK";
 	skosmos:feedbackRecipient "support@ub.ntnu.no" ;
         skosmos:showTopConcepts "true";
-	void:sparqlEndpoint <http://localhost/sparql> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	# void:dataDump <http://data.ub.uio.no/dumps/tekord.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/tekord> .
 
@@ -81,7 +81,7 @@
 	skosmos:defaultLanguage "nb";
 	skosmos:shortName "REAL";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
-	void:sparqlEndpoint <http://localhost/sparql> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/realfagstermer.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/realfagstermer> .
 
@@ -98,7 +98,7 @@
 	skosmos:shortName "MR";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:dataDump <http://data.ub.uio.no/dumps/mrtermer.ttl> ;
-	void:sparqlEndpoint <http://localhost/sparql> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
 
 :categories a skos:ConceptScheme;
