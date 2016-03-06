@@ -93,9 +93,9 @@
 	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
 
 :categories a skos:ConceptScheme;
-	skos:prefLabel "Vocabulary categories"@en ,
-		"Vokabular-kategorier"@nb ,
-		"Vokabular-kategoriar"@nn .
+	skos:prefLabel "Vocabularies"@en ,
+		"Vokabular"@nb ,
+		"Vokabular"@nn .
 
 :cat_general a skos:Concept ;
 	skos:topConceptOf :categories ;
