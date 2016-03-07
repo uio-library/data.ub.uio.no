@@ -92,6 +92,21 @@
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
 
+:ddc a skosmos:Vocabulary, void:Dataset ;
+	dc:title "Norwegian WebDewey"@en,
+		"Norsk WebDewey"@nn,
+		"Norsk WebDewey"@nb ;
+	dc:subject :cat_general ;
+	void:uriSpace "http://data.ub.uio.no/ddc/";
+	skosmos:groupClass skos:Collection;
+	skosmos:language "nb";
+	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "true";
+	skosmos:shortName "DDC";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/ddc> .
+
 :categories a skos:ConceptScheme;
 	skos:prefLabel "Vocabularies"@en ,
 		"Vokabular"@nb ,
