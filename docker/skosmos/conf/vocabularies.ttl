@@ -82,7 +82,6 @@
 		"Menneskerettighetstermer"@nb ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/mrtermer/";
-	skosmos:groupClass skos:Collection;
 	skosmos:language "en";
 	skosmos:defaultLanguage "en";
 	skosmos:showTopConcepts "false";
@@ -98,7 +97,6 @@
 		"Norsk WebDewey"@nb ;
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/ddc/";
-	skosmos:groupClass skos:Collection;
 	skosmos:language "nb";
 	skosmos:defaultLanguage "nb";
 	skosmos:showTopConcepts "true";
