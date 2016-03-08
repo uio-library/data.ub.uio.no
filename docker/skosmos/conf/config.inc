@@ -46,4 +46,4 @@ define("SERVICE_LOGO", "./resource/pics/logo.png");
 define("CUSTOM_CSS", "resource/css/stylesheet.css");
 
 // Customize the base element. Set this if the automatic base url detection doesn't work. For example setups behind a proxy.
-define("BASE_HREF", "http://data.ub.uio.no/skosmos/");
+define("BASE_HREF", "//data.ub.uio.no/skosmos/");
