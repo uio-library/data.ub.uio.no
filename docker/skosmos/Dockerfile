@@ -54,9 +54,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --file
 
 # The site itself
 RUN mkdir -p        /var/www
-RUN git clone https://github.com/scriptotek/Skosmos.git /var/www/skosmos
-RUN cd /var/www/skosmos \
-  && git checkout data-ub \
+RUN git clone https://github.com/danmichaelo/Skosmos.git /var/www/skosmos \
+  && cd /var/www/skosmos \
+  && git checkout -b data-ub origin/data-ub \
   && composer install --prefer-source --no-interaction
 
 
