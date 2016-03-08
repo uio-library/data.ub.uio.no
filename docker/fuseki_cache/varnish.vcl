@@ -7,6 +7,9 @@ backend default {
 
 sub vcl_backend_response {
 
+    # Unset cookies so we can cache more requests
+    unset beresp.http.set-cookie;
+
     # Allow Varnish to serve objects that are up to five minutes out of date.
     # When it does it will also schedule a refresh of the object.
     set beresp.grace = 5m;
