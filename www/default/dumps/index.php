@@ -16,7 +16,7 @@
 <h1><a href="/">data.ub.uio.no</a> / dumps</h1>
 
 <p>
-  All data is available under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 license</a>.
+  All data available under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 license</a>.
 </p>
 
 <?php
