@@ -1,25 +1,39 @@
+p, dl, li {
+  font-family: 'Inconsolata', Arial, sans-serif; font-weight: 400;
+}
 body {
-    background: #eee;
+    background: #eee url(/res/congruent_pentagon.png); /* subtlepatterns.com */
+    /* http://mathtourist.blogspot.no/2010/06/tiling-with-pentagons.html */
     padding: 2vw;
     color: #333;
 }
+h1, h2 {
+  font-family: Arial, sans-serif; font-weight: 400;
+}
 h1, h2, h3 {
-    font-family: sans-serif;
     margin: 0;
 }
-a:link, a:visited {
-    text-decoration: none;
-    color: #33f;
+h1, h2 {
+    margin-bottom:.4em;
+    border-bottom: 1px solid #ccc;
 }
+h2 {
+    margin-top: .8em;
+}
+
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    background: rgba(255, 255, 0, .2);
 }
 
 dt {
 	margin-top: 1em;
 }
+dd {
+    margin-left: 2em;
+}
 
-.container {
+.pagecontainer {
 	max-width: 900px;
 	margin: 0 auto;
 	background: white;
