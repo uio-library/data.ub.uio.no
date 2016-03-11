@@ -76,6 +76,8 @@ RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.co
 
 RUN sed -i "s/display_startup_errors = Off/display_startup_errors = On/" /etc/php5/fpm/php.ini
 RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php5/fpm/php.ini
+RUN sed -i "s/memory_limit = 128M/memory_limit = 348M/" /etc/php5/fpm/php.ini
+RUN sed -i "s/file_uploads = On/file_uploads = Off/" /etc/php5/fpm/php.ini
 
 RUN sed -i "s/;php_admin_value\[error_log\]/php_admin_value\[error_log\]/" /etc/php5/fpm/pool.d/www.conf
 RUN sed -i "s/;php_admin_flag\[log_errors\]/php_admin_flag\[log_errors\]/" /etc/php5/fpm/pool.d/www.conf
