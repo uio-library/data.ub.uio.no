@@ -10,7 +10,7 @@ jena:
 # Fuseki service
 fuseki:
   build: fuseki
-  restart: on-failure:10
+  restart: always
   environment:
    - JVM_ARGS=-Xmx2g
   volumes_from:
@@ -18,7 +18,7 @@ fuseki:
 
 fuseki_cache:
   build: fuseki_cache
-  restart: on-failure:10
+  restart: always
   links:
    - fuseki
   environment:
@@ -30,7 +30,7 @@ fuseki_cache:
 # Skosmos service
 skosmos:
   build: skosmos
-  restart: on-failure:10
+  restart: always
   ports:
    - "8000:80"
   links:
