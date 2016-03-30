@@ -15,6 +15,8 @@ fuseki:
    - JVM_ARGS=-Xmx2g
   volumes_from:
    - fuseki_data
+  ports:
+   - "3031:3030"
 
 fuseki_cache:
   build: fuseki_cache
