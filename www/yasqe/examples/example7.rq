@@ -1,0 +1,13 @@
+PREFIX realfagstermer: <http://data.ub.uio.no/realfagstermer/> 
+PREFIX mads: <http://www.loc.gov/mads/rdf/v1#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT *
+WHERE {
+  GRAPH <http://data.ub.uio.no/realfagstermer> {
+    ?x skos:prefLabel ?label ;
+       mads:componentList/rdf:rest{0}/rdf:first ?firstItem ;
+       mads:componentList/rdf:rest{1}/rdf:first ?secondItem .
+  }
+}
