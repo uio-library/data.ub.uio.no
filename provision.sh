@@ -65,7 +65,9 @@ hash php 2>/dev/null || {
 
 	yum install -y php56u php56u-pgsql php56u-mbstring php56u-pdo php56u-gd php56u-ldap \
 	    php56u-pecl-imagick php56u-curl php56u-apc
+
 }
+sed -i 's|;date.timezone =.*$|date.timezone = "Europe/Oslo"|' /etc/php.ini
 
 test -f /usr/local/bin/docker-compose 2>/dev/null || {
 	echo "Installing docker-compose"
