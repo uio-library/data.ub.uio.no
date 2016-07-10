@@ -5,6 +5,27 @@ backend default {
     .port = "3030";
 }
 
+acl banners {
+    "172.17.0.0"/16;  # Docker
+}
+
+sub vcl_recv {
+    if (req.method == "BAN") {
+        if (!client.ip ~ banners) {
+            return(synth(405, "Not allowed from this IP."));
+        }
+
+        # Lurker-friendly ban
+        # Assumes the ``X-Ban-Url`` header is a regex,
+        # this might be a bit too simple.
+        # <http://book.varnish-software.com/4.0/chapters/Cache_Invalidation.html>
+        ban("obj.http.x-url ~ " + req.http.x-ban-url);
+
+        # Throw a synthetic page so the request won't go to the backend.
+        return(synth(200, "Ban added"));
+    }
+}
+
 sub vcl_backend_response {
 
     # Unset cookies so we can cache more requests
@@ -22,6 +43,9 @@ sub vcl_backend_response {
 
     # Always gzip before storing, to save space in the cache
     set beresp.do_gzip = true;
+
+    # Part of cache invalidation
+    set beresp.http.x-url = bereq.url;
 }
 
 sub vcl_deliver {
@@ -33,4 +57,7 @@ sub vcl_deliver {
     } else {
         set resp.http.X-Cache = "MISS";
     }
+
+    # The X-Url header is for internal use only
+    unset resp.http.x-url;
 }
