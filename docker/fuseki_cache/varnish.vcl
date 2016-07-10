@@ -35,8 +35,8 @@ sub vcl_backend_response {
     # When it does it will also schedule a refresh of the object.
     set beresp.grace = 5m;
 
-    # Store for a long time (1 day)
-    set beresp.ttl = 1d;
+    # Store for a long time (1 week)
+    set beresp.ttl = 1w;
 
     /* Set the clients TTL on this object */
     set beresp.http.Cache-Control = "public, max-age=86400";
