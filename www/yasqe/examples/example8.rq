@@ -1,0 +1,24 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX hume: <http://data.ub.uio.no/humord/>
+PREFIX real: <http://data.ub.uio.no/realfagstermer/>
+
+SELECT
+	?sourceConcept ?sourceLabel
+    ?mappingRelation
+    ?targetConcept ?targetNotation ?targetLabel
+WHERE
+{
+  ?targetConcept skos:notation ?targetNotation ;
+                 skos:inScheme ?targetScheme ;
+                 skos:prefLabel ?targetLabel .
+
+  ?sourceConcept ?mappingRelation ?targetConcept ;
+                 skos:inScheme ?sourceScheme ;
+                 skos:prefLabel ?sourceLabel .
+
+  FILTER(?mappingRelation IN (skos:exactMatch, skos:closeMatch, skos:narrowMatch, skos:broadMatch, skos:relatedMatch))
+  FILTER(LANG(?sourceLabel) = "nb")
+
+  VALUES ?targetNotation { "333.75" }
+  VALUES ?targetScheme { <http://dewey.info/scheme/edition/e23/> }
+}

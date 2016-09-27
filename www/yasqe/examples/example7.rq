@@ -11,3 +11,4 @@ WHERE {
        mads:componentList/rdf:rest{1}/rdf:first ?secondItem .
   }
 }
+LIMIT 10
