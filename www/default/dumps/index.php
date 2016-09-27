@@ -43,6 +43,10 @@ $datasets = array(
         'git' => 'https://github.com/scriptotek/usvd',
         'freq' => 'irregularly',
     ),
+    'lskjema' => array(
+        'title' => 'L-skjema (Juridisk bibliotek)',
+        'freq' => 'irregularly',
+    ),
 );
 
 function fsize_hr($f) {
