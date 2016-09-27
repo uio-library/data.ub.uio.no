@@ -66,8 +66,12 @@ foreach ($datasets as $dataset => $details) {
     $files = glob($dataset . '*');
     echo '<p>';
     // echo 'Updated ' . $details['freq'] . '. ';
-    echo 'Last updated: ' . date ("Y-m-d H:i:s", filemtime($files[0])) . '. ';
-    echo '<a href="' . $details['git'] . '">Git repo</a>';
+    if (count($files)) {
+        echo 'Last updated: ' . date ("Y-m-d H:i:s", filemtime($files[0])) . '. ';
+    }
+    if (isset($details['git'])) {
+        echo '<a href="' . $details['git'] . '">Git repo</a>';
+    }
     echo '</p>';
     echo '<ul>';
 
