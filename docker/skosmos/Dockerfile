@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y vim \
   git \
   python-software-properties
 
-RUN add-apt-repository -y ppa:ondrej/php5 \
+RUN add-apt-repository -y ppa:ondrej/php \
   && apt-get update \
   && apt-get install -y --force-yes \
     php5-cli \
@@ -54,9 +54,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --file
 
 # The site itself
 RUN mkdir -p        /var/www
-RUN git clone https://github.com/danmichaelo/Skosmos.git /var/www/skosmos \
+RUN git clone https://github.com/NatLibFi/Skosmos /var/www/skosmos \
   && cd /var/www/skosmos \
-  && git checkout -b data-ub origin/data-ub \
+  && git checkout -b v1.8 \
   && composer install --prefer-source --no-interaction
 
 
