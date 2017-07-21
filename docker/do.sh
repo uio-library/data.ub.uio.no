@@ -30,6 +30,7 @@ help() {
   # echo "   > remove - Remove containers"
   echo "   > help - Display this help"
   echo "   > varnishlog - Attach to varnishlog"
+  echo "   > attach [name] - Attach to any container"
   echo "   > shell [name] - Start bash shell in running container"
   echo -e -n "$NORMAL"
   echo "-----------------------------------------------------------------------"
@@ -68,8 +69,10 @@ reload_service() {
   docker-compose up -d "$service"
 
   containerid=$(docker-compose ps -q "$service" | cut -c 1-12)
-  imageid=$(docker inspect -f {{.Image}} "$containerid" | cut -c 1-10)
+  imageid=$(docker inspect -f {{.Image}} "$containerid" | cut -c 1-19)
   state=$(docker inspect -f {{.State.Running}} "$containerid")
+
+  docker-compose logs --tail=10 "$service"
 
   log "Service reloaded"
   log "Container id: $containerid1..$containerid"
@@ -94,7 +97,7 @@ status() {
   fi
   for service in $EXTRAS; do
     containerid=$(docker-compose ps -q "$service" | cut -c 1-12)
-    imageid=$(docker inspect -f {{.Image}} "$containerid" | cut -c 1-10)
+    imageid=$(docker inspect -f {{.Image}} "$containerid" | cut -c 1-19)
     state=$(docker inspect -f {{.State.Running}} "$containerid")
     log "[$service]  Container: $containerid  Image: $imageid  Running: $state"
   done
@@ -104,6 +107,18 @@ status() {
 remove() {
   log "Removing previous containers"
   # docker rm -f $CONTAINER_NAME &> /dev/null || true
+}
+
+attach() {
+  service="$EXTRAS"
+  containerid1=$(docker-compose ps -q "$service" | cut -c 1-12)
+  if [[ -z "$containerid1" ]]; then
+    error "No active container found"
+    exit 1
+  fi
+  log "Attaching to container ${containerid1}"
+  docker exec -ti ${containerid1} bash
+
 }
 
 varnishlog() {
