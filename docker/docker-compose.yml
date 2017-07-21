@@ -38,3 +38,13 @@ skosmos:
   links:
    - fuseki_cache
 
+skosmos_cache:
+  build: skosmos_cache
+  restart: always
+  links:
+   - skosmos
+  environment:
+   - VCL_CONFIG=/varnish.vcl
+   - CACHE_SIZE=256m
+  ports:
+   - "8001:8000"
