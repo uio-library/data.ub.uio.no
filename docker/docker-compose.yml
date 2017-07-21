@@ -12,7 +12,7 @@ fuseki:
   build: fuseki
   restart: always
   environment:
-   - JVM_ARGS=-Xmx2g
+   - JVM_ARGS=-Xmx4g
   volumes_from:
    - fuseki_data
   ports:
