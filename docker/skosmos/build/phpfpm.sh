@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "Starting php5-fpm"
-php5-fpm -c /etc/php5/fpm
+echo "Starting php-fpm"
+php-fpm7.0 -c /etc/php/7.0/fpm
