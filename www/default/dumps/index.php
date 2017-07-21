@@ -22,29 +22,29 @@
 <?php
 
 $datasets = array(
+    'humord' => array(
+        'title' => 'HUME: Humord',
+        'git' => 'https://github.com/scriptotek/humord',
+        'freq' => 'weekly',
+    ),
     'realfagstermer' => array(
-        'title' => 'Realfagstermer',
+        'title' => 'REAL: Realfagstermer',
         'git' => 'https://github.com/realfagstermer/realfagstermer',
         'skosmos' => 'https://skosmos.biblionaut.net/realfagstermer/',
         'freq' => 'hourly on changes',
     ),
-    'humord' => array(
-        'title' => 'Humord',
-        'git' => 'https://github.com/scriptotek/humord',
-        'freq' => 'weekly',
-    ),
     'mrtermer' => array(
-        'title' => 'Menneskerettighetstermer',
+        'title' => 'SMR: Menneskerettighetstermer',
         'git' => 'https://github.com/realfagstermer/mrtermer',
         'freq' => 'now and then',
     ),
-    'usvd' => array(
-        'title' => 'The UBO relative index to DDC',
-        'git' => 'https://github.com/scriptotek/usvd',
+    'lskjema' => array(
+        'title' => 'UJUR: L-skjema (Juridiske emneord)',
         'freq' => 'irregularly',
     ),
-    'lskjema' => array(
-        'title' => 'L-skjema (Juridisk bibliotek)',
+    'usvd' => array(
+        'title' => 'USVD: The UBO relative index to DDC',
+        'git' => 'https://github.com/scriptotek/usvd',
         'freq' => 'irregularly',
     ),
 );

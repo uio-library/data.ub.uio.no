@@ -84,7 +84,7 @@
 	dc:title "Human Rights Terms"@en,
 		"Menneskerett-termar"@nn,
 		"Menneskerettighetstermer"@nb ;
-	dc:subject :cat_general ;
+	dc:subject :cat_law ;
 	void:uriSpace "http://data.ub.uio.no/mrtermer/";
 	skosmos:mainConceptScheme <http://data.ub.uio.no/mrtermer/>;
 	skosmos:language "en";
@@ -95,6 +95,22 @@
 	void:dataDump <http://data.ub.uio.no/dumps/mrtermer.ttl> ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/mrtermer> .
+
+:lskjema a skosmos:Vocabulary, void:Dataset ;
+	dc:title "L-skjema"@en,
+		"L-skjema"@nn,
+		"L-skjema"@nb ;
+	dc:subject :cat_law ;
+	void:uriSpace "http://data.ub.uio.no/lskjema/";
+	skosmos:mainConceptScheme <http://data.ub.uio.no/lskjema/>;
+	skosmos:language "nb";
+	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "false";
+	skosmos:shortName "UJUR";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:dataDump <http://data.ub.uio.no/dumps/lskjema.ttl> ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/lskjema> .
 
 :ddc a skosmos:Vocabulary, void:Dataset ;
 	dc:title "Norwegian WebDewey"@en,
@@ -124,6 +140,13 @@
 	skos:prefLabel "General"@en,
 		"Generelt"@nb,
 		"Generelt"@nn .
+
+:cat_law a skos:Concept ;
+	skos:topConceptOf :categories ;
+	skos:inScheme :categories ;
+	skos:prefLabel "Law"@en,
+		"Juridisk"@nb,
+		"Juridisk"@nn .
 
 :cat_science a skos:Concept ;
 	skos:topConceptOf :categories ;
