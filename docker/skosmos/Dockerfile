@@ -58,8 +58,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --file
 RUN mkdir -p        /var/www
 RUN git clone https://github.com/NatLibFi/Skosmos /var/www/skosmos \
   && cd /var/www/skosmos \
-  && git checkout c6afa66bd4a8d43320b19751c82945c2c8bdf304 \
-  && composer install --prefer-source --no-interaction
+  && git checkout v1.9 \
+  && composer install --prefer-source --no-interaction \
+  && composer update --prefer-source --no-interaction
 
 
 # Daemons to be run by runit
