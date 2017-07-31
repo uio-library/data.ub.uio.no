@@ -38,6 +38,8 @@ function out($result) {
         echo "HUME{$n}";
     } elseif ($v == 'mrtermer') {
         echo "SMR{$n}";
+    } elseif ($v == 'lskjema') {
+        echo "UJUR{$n}";
     } else {
         header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
     }
