@@ -1,5 +1,13 @@
 <?php
 
+function error($msg, $code = '400', $extras = []) {
+    header($_SERVER["SERVER_PROTOCOL"]." $code Bad Request"); 
+    header('Content-Type: application/json');
+    $extras['error'] = $msg;
+    echo json_encode($extras);
+    exit;
+}
+
 $concept_types = [
     '648' => 'http://data.ub.uio.no/onto#Time',
     '650' => 'http://data.ub.uio.no/onto#Topic',
@@ -8,22 +16,21 @@ $concept_types = [
 ];
 
 
+
 $vocab = $_GET['vocabulary'];
 
 $tag = $_GET['tag'];
 $concept_type = null;
 if (!is_null($tag)) {
     if (!isset($concept_types[$tag])) {
-        header($_SERVER["SERVER_PROTOCOL"]." 400 Bad Request"); 
-        echo "Not a supported tag";
-        exit;
+        error("Not a supported tag");
     }
     $concept_type = $concept_types[$tag];
 }
 
-$url = "http://data.ub.uio.no/skosmos/rest/v1/{$vocab}/search?" . http_build_query([
+$url = "http://data.ub.uio.no/skosmos/rest/v1/{$vocab}/lookup?" . http_build_query([
     'lang' => 'nb',
-    'query' => $_GET['term'],
+    'label' => $_GET['term'],
 ]);
 $res = json_decode(file_get_contents($url), true);
 
@@ -33,16 +40,25 @@ function out($result) {
     $n = str_replace('c', '', $result['localname']);
 
     if ($v == 'realfagstermer') {
-        echo "REAL{$n}";
+        $id = "REAL{$n}";
     } elseif ($v == 'humord') {
-        echo "HUME{$n}";
+        $id = "HUME{$n}";
     } elseif ($v == 'mrtermer') {
-        echo "SMR{$n}";
+        $id = "SMR{$n}";
     } elseif ($v == 'lskjema') {
-        echo "UJUR{$n}";
+        $id = "UJUR{$n}";
     } else {
-        header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
+        error('Unknown vocabulary');
     }
+
+    $prefix = '(NO-TrBIB)';
+    $out = [
+        'id' => $prefix + $id,
+        'prefLabel' => $result['prefLabel'],
+        // 'data' => $result,
+    ];
+    header('Content-Type: application/json');
+    echo json_encode($out);
     exit;
 }
 
@@ -53,12 +69,18 @@ if (is_null($res)) {
     exit;
 }
 
+$matching = []
 foreach ($res['results'] as $res) {
     if (is_null($concept_type)) {
-        out($res);
+        $matching[] = $res;
     } elseif (in_array($concept_type, $res['type'])) {
-        out($res);
+        $matching[] = $res;
     }
 }
+if (len($matching) == 0) {
+    error('Not found', '404');
+} else if (len($matching) > 1) {
+    error('Term matched more than one concept');
+}
+out($matching[0]);
 
-header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
