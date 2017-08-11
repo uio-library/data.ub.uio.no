@@ -87,6 +87,8 @@ hash pip 2>/dev/null || {
 	echo "Installing pip"
 
 	\curl -sS https://bootstrap.pypa.io/get-pip.py | python
+
+	echo "export LC_ALL=en_US.UTF-8" >> /etc/profile  # since pip fails when LC_ALL not set
 }
 
 hash doit 2>/dev/null || {
