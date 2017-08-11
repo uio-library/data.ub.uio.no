@@ -2,3 +2,5 @@
 node_modules/
 .DS_Store
 **/._*
+composer.lock
+vendor

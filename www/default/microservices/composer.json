@@ -1,0 +1,14 @@
+{
+    "name": "root/microservices",
+    "require": {
+        "scriptotek/sru-client": "^0.6.2",
+        "php-http/guzzle6-adapter": "^1.1",
+        "scriptotek/marc": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "Dan Michael O. Heggø",
+            "email": "danmichaelo@gmail.com"
+        }
+    ]
+}
