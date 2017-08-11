@@ -1,5 +1,7 @@
 #!/bin/bash
 
+yum -y install httpd mod_wsgi mod_ssl
+
 \cp data_ub_uio_no.conf /etc/httpd/conf.d/data_ub_uio_no.conf
 \cp ssl.conf /etc/httpd/conf.d/ssl.conf
 \cp status.conf /etc/httpd/conf.d/status.conf
