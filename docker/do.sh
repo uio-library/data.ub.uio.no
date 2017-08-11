@@ -32,6 +32,7 @@ help() {
   echo "   > varnishlog - Attach to varnishlog"
   echo "   > attach [name] - Attach to any container"
   echo "   > shell [name] - Start bash shell in running container"
+  echo "   > cleanup - Cleanup dangling images"
   echo -e -n "$NORMAL"
   echo "-----------------------------------------------------------------------"
 
@@ -65,7 +66,11 @@ reload_service() {
 
   docker-compose build "$service"
   docker-compose stop "$service"
+
+  log "Force removing old version"
   docker-compose rm --force "$service"  # removes volumes as well
+
+  log "Upping new version"
   docker-compose up -d "$service"
 
   containerid=$(docker-compose ps -q "$service" | cut -c 1-12)
@@ -144,6 +149,11 @@ shell() {
   fi
   log "Starting bash shell in container ${containerid1}"
   docker exec -ti ${containerid1} env TERM=xterm bash -l
+}
+
+cleanup() {
+  log "Removing dangling images..."
+  docker images --no-trunc -q -f dangling=true | xargs -r docker rmi
 }
 
 if [[ "$#" -eq "0" ]]; then
