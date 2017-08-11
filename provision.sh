@@ -41,7 +41,7 @@ gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
 EOF
 
-	yum update && yum install docker-engine
+	yum -y update && yum -y install docker-engine
 	service docker start
 
 	# curl -fsSL https://get.docker.com/ | sh
