@@ -32,7 +32,7 @@ $url = "http://data.ub.uio.no/skosmos/rest/v1/{$vocab}/lookup?" . http_build_que
     'lang' => 'nb',
     'label' => $_GET['term'],
 ]);
-$res = json_decode(file_get_contents($url), true);
+$res = json_decode(@file_get_contents($url), true);
 
 
 function out($result) {
@@ -53,7 +53,7 @@ function out($result) {
 
     $prefix = '(NO-TrBIB)';
     $out = [
-        'id' => $prefix + $id,
+        'id' => $prefix . $id,
         'prefLabel' => $result['prefLabel'],
         // 'data' => $result,
     ];
@@ -69,17 +69,17 @@ if (is_null($res)) {
     exit;
 }
 
-$matching = []
-foreach ($res['results'] as $res) {
+$matching = [];
+foreach ($res['result'] as $res) {
     if (is_null($concept_type)) {
         $matching[] = $res;
     } elseif (in_array($concept_type, $res['type'])) {
         $matching[] = $res;
     }
 }
-if (len($matching) == 0) {
+if (count($matching) == 0) {
     error('Not found', '404');
-} else if (len($matching) > 1) {
+} else if (count($matching) > 1) {
     error('Term matched more than one concept');
 }
 out($matching[0]);
