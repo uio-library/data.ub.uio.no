@@ -1,4 +1,4 @@
-FROM stain/jena-fuseki:2.5.0
+FROM stain/jena-fuseki:3.4.0
 
 COPY config.ttl /jena-fuseki/config.ttl
 
