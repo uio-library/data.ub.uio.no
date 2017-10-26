@@ -79,31 +79,30 @@ function format_record($record) {
         if (is_null($field)) {
             continue;
         }
-
+        $term = [];
         $val = [];
         foreach ($field->getSubfields() as $sf) {
             $val[] = '$' . $sf->getCode() . ' ' . $sf->getData();
+            $term[] = $sf->getData();
         }
         $out['tag'] = $tag;
+        $out['vocab'] = 'bare';
+        $out['prefLabel'] = implode(' : ', $term);
         $out['field'] = implode(' ', $val);
     }
     return $out;
 }
 
-if (count($records) == 0) {
-    error('No records found');
-}
-
-if (count($records) > 1) {
-    $recs = [];
-    foreach ($records as $r) {
-        $recs[] = format_record($r);
+$recs = [];
+foreach ($records as $r) {
+    $rec = format_record($r);
+    if ($rec['prefLabel'] == $value) {
+        $recs[] = $rec;
     }
-    error('Found ' . count($records) . ' records, expected exactly 1', [
-        'records' => $recs,
-    ]);
 }
 
 header('Content-Type: application/json');
-echo json_encode(format_record($records[1]));
+echo json_encode([
+    'result' => $recs,
+]);
 

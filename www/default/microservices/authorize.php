@@ -9,17 +9,20 @@ function error($msg, $code = '400', $extras = []) {
 }
 
 $concept_types = [
-    '648' => 'http://data.ub.uio.no/onto#Time',
-    '650' => 'http://data.ub.uio.no/onto#Topic',
-    '651' => 'http://data.ub.uio.no/onto#Place',
-    '655' => 'http://data.ub.uio.no/onto#GenreForm',
+    '648' => ['http://data.ub.uio.no/onto#Time'],
+    '650' => ['http://data.ub.uio.no/onto#Topic', 'http://data.ub.uio.no/onto#CompoundConcept'],
+    '651' => ['http://data.ub.uio.no/onto#Place'],
+    '655' => ['http://data.ub.uio.no/onto#GenreForm'],
+    '600' => ['http://data.ub.uio.no/onto#Person'],
+    '610' => ['http://data.ub.uio.no/onto#Corporation'],
+    '611' => ['http://data.ub.uio.no/onto#Meeting'],
 ];
 
 
 
 $vocab = $_GET['vocabulary'];
 
-$tag = $_GET['tag'];
+$tag = isset($_GET['tag']) ? $_GET['tag'] : null;
 $concept_type = null;
 if (!is_null($tag)) {
     if (!isset($concept_types[$tag])) {
@@ -28,27 +31,43 @@ if (!is_null($tag)) {
     $concept_type = $concept_types[$tag];
 }
 
-$url = "http://data.ub.uio.no/skosmos/rest/v1/{$vocab}/lookup?" . http_build_query([
-    'lang' => 'nb',
-    'label' => $_GET['term'],
-]);
-$res = json_decode(@file_get_contents($url), true);
+if ($vocab == 'bare') {
+    $concept_type = null;
+}
 
+if ($vocab == 'bare') {
+    $url = "http://data.ub.uio.no/microservices/bare.php?" . http_build_query([
+        'tag' => $tag,
+        'term' => $_GET['term'],
+    ]);
+    $res = json_decode(@file_get_contents($url), true);
 
+} else {
+    $url = "http://data.ub.uio.no/skosmos/rest/v1/{$vocab}/lookup?" . http_build_query([
+        'lang' => 'nb',
+        'label' => $_GET['term'],
+    ]);
+    $res = json_decode(@file_get_contents($url), true);
+}
 function out($result) {
     $v = $result['vocab'];
-    $n = str_replace('c', '', $result['localname']);
 
-    if ($v == 'realfagstermer') {
-        $id = "REAL{$n}";
-    } elseif ($v == 'humord') {
-        $id = "HUME{$n}";
-    } elseif ($v == 'mrtermer') {
-        $id = "SMR{$n}";
-    } elseif ($v == 'lskjema') {
-        $id = "UJUR{$n}";
+    if (isset($result['localname'])) {
+        $n = str_replace('c', '', $result['localname']);
+
+        if ($v == 'realfagstermer') {
+            $id = "REAL{$n}";
+        } elseif ($v == 'humord') {
+            $id = "HUME{$n}";
+        } elseif ($v == 'mrtermer') {
+            $id = "SMR{$n}";
+        } elseif ($v == 'lskjema') {
+            $id = "UJUR{$n}";
+        } else {
+            error('Unknown vocabulary');
+        }
     } else {
-        error('Unknown vocabulary');
+        $id = str_replace('(NO-TrBIB)', '', $result['id']);
     }
 
     $prefix = '(NO-TrBIB)';
@@ -65,16 +84,19 @@ function out($result) {
 header('Content-Type: text/plain; charset=utf-8');
 
 if (is_null($res)) {
-    header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found"); 
-    exit;
+    error('Not found', '404');
 }
 
 $matching = [];
 foreach ($res['result'] as $res) {
     if (is_null($concept_type)) {
         $matching[] = $res;
-    } elseif (in_array($concept_type, $res['type'])) {
-        $matching[] = $res;
+    } else {
+        foreach ($res['type'] as $t) {
+            if (in_array($t, $concept_type)) {
+                $matching[] = $res;
+            }
+        }
     }
 }
 if (count($matching) == 0) {
