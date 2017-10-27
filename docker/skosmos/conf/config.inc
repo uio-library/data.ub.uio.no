@@ -4,8 +4,8 @@
 define("VOCABULARIES_FILE", "vocabularies.ttl");
 
 // HTTP client configuration
-define("HTTP_TIMEOUT", 5); // external HTTP request timeout in seconds
-define("SPARQL_TIMEOUT", 30); // SPARQL HTTP request timeout in seconds
+define("HTTP_TIMEOUT", 10); // external HTTP request timeout in seconds
+define("SPARQL_TIMEOUT", 60); // SPARQL HTTP request timeout in seconds
 
 // interface languages available, and the corresponding system locales
 $LANGUAGES = array(
