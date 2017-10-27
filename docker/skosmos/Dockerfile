@@ -58,7 +58,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --file
 RUN mkdir -p        /var/www
 RUN git clone https://github.com/NatLibFi/Skosmos /var/www/skosmos \
   && cd /var/www/skosmos \
-  && git checkout v1.9 \
+  && git checkout master \
   && composer install --prefer-source --no-interaction \
   && composer update --prefer-source --no-interaction
 
