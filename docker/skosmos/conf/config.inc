@@ -60,3 +60,9 @@ define("BASE_HREF", "//data.ub.uio.no/skosmos/");
 
 // whether to display the ui language selection as a dropdown (useful for cases where there are more than 3 languages)
 define("UI_LANGUAGE_DROPDOWN", FALSE);
+
+// whether to enable the spam honey pot or not, enabled by default
+define("UI_HONEYPOT_ENABLED", TRUE);
+
+// default time a user must wait before submitting a form
+define("UI_HONEYPOT_TIME", 5);
