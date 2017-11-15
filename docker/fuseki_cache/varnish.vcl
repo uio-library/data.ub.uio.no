@@ -7,6 +7,7 @@ backend default {
 
 acl banners {
     "172.17.0.0"/16;  # Docker
+    "172.18.0.0"/16;  # Docker
 }
 
 sub vcl_recv {
