@@ -61,9 +61,11 @@ text:TextIndexLucene  rdfs:subClassOf   text:TextIndex .
     .
 
 <#indexLucene> a text:TextIndexLucene ;
+    # text:directory "mem" ;
     text:directory <file:/fuseki/index> ;
     text:storeValues true;  ## Required for Skosmos 1.4+
-    # text:directory "mem" ;
+    # text:multilingualSupport true;
+    text:queryParser text:AnalyzingQueryParser ;
     text:entityMap <#entMap> ;
     .
 
@@ -78,13 +80,34 @@ text:TextIndexLucene  rdfs:subClassOf   text:TextIndex .
          # skos:prefLabel
          [ text:field "pref" ;
            text:predicate skos:prefLabel ;
-           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
+           text:analyzer [
+             a text:ConfigurableAnalyzer ;
+             text:tokenizer text:KeywordTokenizer ;
+             text:filters (text:LowerCaseFilter)
+           ]
+         ]
          # skos:altLabel
          [ text:field "alt" ;
            text:predicate skos:altLabel ;
-           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
+           text:analyzer [
+             a text:ConfigurableAnalyzer ;
+             text:tokenizer text:KeywordTokenizer ;
+             text:filters (text:LowerCaseFilter)
+           ]
+         ]
          # skos:hiddenLabel
          [ text:field "hidden" ;
            text:predicate skos:hiddenLabel ;
-           text:analyzer [ a text:LowerCaseKeywordAnalyzer ] ]
-         ) .
+           text:analyzer [
+             a text:ConfigurableAnalyzer ;
+             text:tokenizer text:KeywordTokenizer ;
+             text:filters (text:LowerCaseFilter)
+           ]
+         ]
+    ) .
+
+
+#<#textAnalyzer> a text:ConfigurableAnalyzer ;
+#    text:tokenizer text:KeywordTokenizer ;   # to split into individual words. Alternative: text:KeywordTokenizer
+#    text:filters (text:ASCIIFoldingFilter text:LowerCaseFilter) .
+
