@@ -76,6 +76,7 @@
 	skosmos:showChangeList "true";
 	skosmos:shortName "REAL";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	skosmos:groupClass skos:Collection ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	void:dataDump <http://data.ub.uio.no/dumps/realfagstermer.ttl> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/realfagstermer> .
