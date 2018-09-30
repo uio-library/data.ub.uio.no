@@ -42,11 +42,11 @@ RUN apt-get update && apt-get install -y vim \
 RUN add-apt-repository -y ppa:ondrej/php \
   && apt-get update \
   && apt-get install -y \
-    php7.0-cli \
-    php7.0-fpm \
-    php7.0-mbstring \
-    php7.0-dom \
-    php7.0-curl
+    php7.1-cli \
+    php7.1-fpm \
+    php7.1-mbstring \
+    php7.1-dom \
+    php7.1-curl
 
 RUN add-apt-repository -y ppa:nginx/stable \
   && apt-get update \
@@ -56,11 +56,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --file
 
 # The site itself
 RUN mkdir -p        /var/www
-RUN git clone https://github.com/NatLibFi/Skosmos /var/www/skosmos \
+RUN git clone https://github.com/danmichaelo/Skosmos /var/www/skosmos \
   && cd /var/www/skosmos \
-  && git checkout master \
-  && composer install --prefer-source --no-interaction \
-  && composer update --prefer-source --no-interaction
+  && git checkout v2.0 \
+  && composer install --prefer-source --no-interaction --no-dev \
+  && composer update --prefer-source --no-interaction --no-dev
 
 
 # Daemons to be run by runit
@@ -70,28 +70,27 @@ ADD build/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x        /etc/service/phpfpm/run
 
 # PHP settings
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.0/cli/php.ini
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.0/fpm/php-fpm.conf
-# RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
+RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
+# RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
 
-RUN sed -i "s/display_startup_errors = Off/display_startup_errors = On/" /etc/php/7.0/fpm/php.ini
-RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php/7.0/fpm/php.ini
-RUN sed -i "s/memory_limit = 128M/memory_limit = 348M/" /etc/php/7.0/fpm/php.ini
-RUN sed -i "s/file_uploads = On/file_uploads = Off/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/display_startup_errors = Off/display_startup_errors = On/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/memory_limit = 128M/memory_limit = 348M/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/file_uploads = On/file_uploads = Off/" /etc/php/7.1/fpm/php.ini
 
-RUN sed -i "s/;php_admin_value\[error_log\]/php_admin_value\[error_log\]/" /etc/php/7.0/fpm/pool.d/www.conf
-RUN sed -i "s/;php_admin_flag\[log_errors\]/php_admin_flag\[log_errors\]/" /etc/php/7.0/fpm/pool.d/www.conf
-RUN sed -i "s/;catch_workers_output = yes/catch_workers_output = yes/" /etc/php/7.0/fpm/pool.d/www.conf
+RUN sed -i "s/;php_admin_value\[error_log\]/php_admin_value\[error_log\]/" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i "s/;php_admin_flag\[log_errors\]/php_admin_flag\[log_errors\]/" /etc/php/7.1/fpm/pool.d/www.conf
+RUN sed -i "s/;catch_workers_output = yes/catch_workers_output = yes/" /etc/php/7.1/fpm/pool.d/www.conf
 # RUN mkdir -p /run/php && chown -r 
 
 ADD conf/left.inc /var/www/skosmos/view/left.inc
 ADD conf/footer.inc /var/www/skosmos/view/footer.inc
 ADD conf/about.inc /var/www/skosmos/view/about.inc
-ADD conf/config.inc /var/www/skosmos/config.inc
-ADD conf/vocabularies.ttl /var/www/skosmos/vocabularies.ttl
+ADD conf/config.ttl /var/www/skosmos/config.ttl
 
 ADD build/nginx.php.conf   /etc/nginx/php.conf
 ADD build/nginx.site.conf   /etc/nginx/sites-available/default
