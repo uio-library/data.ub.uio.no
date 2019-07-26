@@ -1,105 +1,80 @@
-# Image based on Ubuntu 16.04 LTS
-FROM phusion/baseimage:0.9.19
+# ---------------------------------------------------------------------------
+# Stage 1
+FROM php:7.3-apache AS builder
 
-ENV DEBIAN_FRONTEND noninteractive
+# 458 MB
 
-# Ensure UTF-8
-RUN locale-gen en_US.UTF-8 \
-  nb_NO.UTF-8 \
-  nn_NO.UTF-8 \
-  fi_FI.UTF-8 \
-  sv_SE.UTF-8
-ENV LANG       en_US.UTF-8
-ENV LC_ALL     en_US.UTF-8
+WORKDIR /app/
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+RUN apt-get update && apt-get -y install git unzip
 
-# Apt magic
-RUN echo 'APT::Install-Recommends "0"; \n\
-    APT::Get::Assume-Yes "true"; \n\
-    APT::Install-Suggests "0";' \
-    > /etc/apt/apt.conf.d/01buildconfig 
-#\
-  #&& echo " \
-  #  deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted universe multiverse \n\
-  #  deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main restricted universe multiverse \n\
-  #  deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-backports main restricted universe multiverse \n\
-  #  deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main  restricted universe multiverse \n\
-  #  " \
-  #  > /etc/apt/sources.list
+# 495MB
 
-# RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+RUN docker-php-ext-install gettext
 
-# Nginx-PHP Installation
-RUN apt-get update && apt-get install -y vim \
-  curl \
-  wget \
-  build-essential \
-  git \
-  python-software-properties
+# 495MB
 
-RUN add-apt-repository -y ppa:ondrej/php \
-  && apt-get update \
-  && apt-get install -y \
-    php7.1-cli \
-    php7.1-fpm \
-    php7.1-mbstring \
-    php7.1-dom \
-    php7.1-curl
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN add-apt-repository -y ppa:nginx/stable \
-  && apt-get update \
-  && apt-get install -y nginx
+# 497 MB
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
+RUN composer global require hirak/prestissimo
 
-# The site itself
-RUN mkdir -p        /var/www
-RUN git clone https://github.com/danmichaelo/Skosmos /var/www/skosmos \
-  && cd /var/www/skosmos \
-  && git checkout v2.0 \
-  && composer install --prefer-source --no-interaction --no-dev \
-  && composer update --prefer-source --no-interaction --no-dev
+# Checkout the site
+RUN git clone --depth 1 --branch mappings-api \
+	https://github.com/danmichaelo/Skosmos /app
 
+# 543 MB
 
-# Daemons to be run by runit
-ADD build/nginx.sh  /etc/service/nginx/run
-RUN chmod +x        /etc/service/nginx/run
-ADD build/phpfpm.sh /etc/service/phpfpm/run
-RUN chmod +x        /etc/service/phpfpm/run
+RUN composer install --no-interaction --no-scripts --no-dev
+
+# NOTE: Skipping --prefer-source saved 200 MB+, because we don't get all
+# the .git folders inside vendor!!
+
+RUN rm -rf tests tools .git
+
+# ---------------------------------------------------------------------------
+# Stage 2
+FROM php:7.3-apache
+
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get -y install locales && \
+    sed -i 's/^# *\(en_US.UTF-8\|fi_NO.UTF-8\|nb_NO.UTF-8\|nn_NO.UTF-8\|sv_SE.UTF-8\)/\1/' /etc/locale.gen && \
+    locale-gen
+
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8
+
+RUN docker-php-ext-install gettext
+
+RUN docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache
+
+# Use the default production configuration
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+# Override with custom opcache settings
+COPY conf/opcache.ini "$PHP_INI_DIR/conf.d/"
+
+# Disable Apache mods we don't need, enable mods we need
+RUN a2dismod -f authn* autoindex reqtimeout filter status alias
+RUN a2enmod rewrite
+
+COPY --from=builder /app/ /app
+COPY test.php /app/
+
+# 505 MB
+
+COPY vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # PHP settings
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/cli/php.ini
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" $PHP_INI_DIR/php.ini \
+	&& sed -i "s/display_startup_errors = Off/display_startup_errors = On/" $PHP_INI_DIR/php.ini \
+	&& sed -i "s/display_errors = Off/display_errors = On/" $PHP_INI_DIR/php.ini \
+	&& sed -i "s/memory_limit = 128M/memory_limit = 348M/" $PHP_INI_DIR/php.ini \
+	&& sed -i "s/file_uploads = On/file_uploads = Off/" $PHP_INI_DIR/php.ini
 
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.1/fpm/php-fpm.conf
-# RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
-
-RUN sed -i "s/display_startup_errors = Off/display_startup_errors = On/" /etc/php/7.1/fpm/php.ini
-RUN sed -i "s/display_errors = Off/display_errors = On/" /etc/php/7.1/fpm/php.ini
-RUN sed -i "s/memory_limit = 128M/memory_limit = 348M/" /etc/php/7.1/fpm/php.ini
-RUN sed -i "s/file_uploads = On/file_uploads = Off/" /etc/php/7.1/fpm/php.ini
-
-RUN sed -i "s/;php_admin_value\[error_log\]/php_admin_value\[error_log\]/" /etc/php/7.1/fpm/pool.d/www.conf
-RUN sed -i "s/;php_admin_flag\[log_errors\]/php_admin_flag\[log_errors\]/" /etc/php/7.1/fpm/pool.d/www.conf
-RUN sed -i "s/;catch_workers_output = yes/catch_workers_output = yes/" /etc/php/7.1/fpm/pool.d/www.conf
-# RUN mkdir -p /run/php && chown -r 
-
-ADD conf/left.inc /var/www/skosmos/view/left.inc
-ADD conf/footer.inc /var/www/skosmos/view/footer.inc
-ADD conf/about.inc /var/www/skosmos/view/about.inc
-ADD conf/config.ttl /var/www/skosmos/config.ttl
-
-ADD build/nginx.php.conf   /etc/nginx/php.conf
-ADD build/nginx.site.conf   /etc/nginx/sites-available/default
-
-RUN mkdir -p /run/php/
-
-EXPOSE 80
-# VOLUME /var/www/skosmos
-
-# Clean up when done
-RUN apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+COPY conf/left.inc conf/footer.inc conf/about.inc /app/view/
+COPY conf/config.ttl /app/

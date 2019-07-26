@@ -2,16 +2,13 @@ version: '3'
 
 volumes:
 
-  # Fuseki data
   fuseki_data:
 
 services:
 
-  # Jena command line tools
   jena:
-    image: stain/jena
+    image: stain/jena:3.10.0
 
-  # Fuseki service
   fuseki:
     build: fuseki
     restart: always
@@ -25,7 +22,7 @@ services:
   fuseki_cache:
     build: fuseki_cache
     restart: always
-    links:
+    depends_on:
      - fuseki
     environment:
      - VCL_CONFIG=/varnish.vcl
@@ -33,22 +30,24 @@ services:
     ports:
      - "3030:80"
 
-  # Skosmos service
   skosmos:
     build: skosmos
     restart: always
+    environment:
+      - CURRENT_BRANCH
+      - GITHUB_TOKEN
     ports:
      - "8000:80"
-    links:
+    depends_on:
      - fuseki_cache
 
   skosmos_cache:
     build: skosmos_cache
     restart: always
-    links:
+    depends_on:
      - skosmos
     environment:
      - VCL_CONFIG=/varnish.vcl
      - CACHE_SIZE=256m
     ports:
-     - "8001:8000"
+     - "8001:80"

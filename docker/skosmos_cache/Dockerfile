@@ -1,4 +1,3 @@
-FROM million12/varnish
+FROM varnish:6
 
-COPY varnish.vcl /varnish.vcl
-
+COPY varnish.vcl /etc/varnish/
