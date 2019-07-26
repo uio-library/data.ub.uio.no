@@ -9,7 +9,7 @@
 
   <Directory /opt/data.ub/www/default/>
     Options FollowSymLinks
-    AllowOverride None
+    AllowOverride Indexes FileInfo Options=All
     Require all granted
   </Directory>
 
@@ -52,6 +52,9 @@
     ProxyPassReverse   http://localhost:4040/ds/sparql
   </Location>
 
+  # ========================== Microservices =================================================
+
+  RewriteRule   "^/microservices/(.+)"  "https://ub-www01.uio.no/microservices/$1"  [NE,R,L]
 
   # ==========================================================================================
 
