@@ -1,0 +1,28 @@
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX hume: <http://data.ub.uio.no/humord/>
+
+SELECT
+  ?concept
+  (STR(?pNB) AS ?prefLabelNB)
+  (GROUP_CONCAT(?aNB; separator=", ") AS ?altLabelNB)
+  (STR(?pEN) AS ?prefLabelEN)
+  (GROUP_CONCAT(?aEN; separator=", ") AS ?altLabelEN)
+WHERE 
+{
+  GRAPH <http://data.ub.uio.no/humord>
+  {
+    ?concept dct:identifier ?identifier ;
+             skos:prefLabel ?pNB ;
+             skos:prefLabel ?pEN . 
+      
+    FILTER(LANG(?pNB) = "nb")
+    FILTER(LANG(?pEN) = "en")
+    
+    OPTIONAL { ?concept skos:altLabel ?aNB . FILTER(LANG(?aNB) = "nb") }
+    OPTIONAL { ?concept skos:altLabel ?aEN . FILTER(LANG(?aEN) = "en") }
+ 
+  }
+}
+GROUP BY ?concept ?pNB ?pEN 
+ORDER BY ?pNB

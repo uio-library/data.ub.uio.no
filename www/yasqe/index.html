@@ -5,11 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Query - data.ub.uio.no</title>
-  <link href='//cdn.jsdelivr.net/g/yasqe@2.11.7(yasqe.min.css),yasr@2.10.6(yasr.min.css)' rel='stylesheet' type='text/css'/>
+  <link href='https://cdn.jsdelivr.net/combine/npm/yasgui-yasqe@2.11.18/dist/yasqe.min.css,npm/yasgui-yasr@2.12.13/dist/yasr.min.css' rel='stylesheet' type='text/css'/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
   <link href="/site.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-  </head>
+  <style>
+    .yasqe .CodeMirror {
+      height: auto;
+    }
+  </style>
+</head>
 <body>
 
 <div class="pagecontainer">
@@ -26,15 +31,20 @@
     Examples:
     <select id="examples">
       <option value="">(load an example query)</option>
-      <option value="1">Graphs with concept counts</option>
+      <option value="1">List graphs and their concept counts</option>
+      <option value="10">Geographic concepts in Realfagstermer</option>
+
       <option value="2">Search by term in all vocabularies</option>
       <option value="3">Search by term in single vocabulary</option>
+
       <option value="4">Concepts with exact mappings</option>
       <option value="5">Concepts in Humord with more than two broader terms</option>
       <option value="6">Transitive broader concepts</option>
       <option value="7">Subject strings and their components</option>
       <option value="8">Mappings to a given Dewey class</option>
       <option value="9">Deprecated concepts in Realfagstermer</option>
+
+      <option value="11">Humord concepts with English terms</option>
     </select>
   </p>
 
@@ -46,8 +56,7 @@
   </p>
 </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src='//cdn.jsdelivr.net/yasr/2.10.6/yasr.bundled.min.js'></script>
-  <script src='//cdn.jsdelivr.net/yasqe/2.11.7/yasqe.bundled.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/combine/npm/yasgui-yasr@2.12.13/dist/yasr.bundled.min.js,npm/yasgui-yasqe@2.11.18/dist/yasqe.bundled.min.js'></script>
   <script src="app.js"></script>
 </body>
 </html>
