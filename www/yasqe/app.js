@@ -12,7 +12,8 @@ var yasqe = YASQE(document.getElementById('yasqe'),
     endpoint: "/sparql",
     requestMethod: "GET"
     /*defaultGraphs: ['http://data.ub.uio.no/rt']*/
-  }
+  },
+  viewportMargin: Infinity,
 });
 
 var yasr = YASR(document.getElementById('yasr'),
