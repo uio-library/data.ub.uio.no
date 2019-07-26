@@ -185,6 +185,72 @@
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/ddc> .
 
+:msc-ubo a skosmos:Vocabulary, void:Dataset ;
+	dc:title "MSC/UBO"@en,
+		"MSC/UBO"@nn,
+		"MSC/UBO"@nb ;
+	dc:subject :cat_science ;
+	void:uriSpace "http://data.ub.uio.no/msc-ubo/";
+	skosmos:mainConceptScheme <http://data.ub.uio.no/msc-ubo/>;
+	skosmos:language "en", "nb";
+	skosmos:defaultLanguage "en";
+	skosmos:showTopConcepts "true";
+	skosmos:showChangeList "false";
+	skosmos:showStatistics "true" ;
+	skosmos:shortName "MSC/UBO";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/msc-ubo> .
+
+:acm-ccs-ubo a skosmos:Vocabulary, void:Dataset ;
+	dc:title "ACM CCS/UBO"@en,
+		"ACM CCS/UBO"@nn,
+		"ACM CCS/UBO"@nb ;
+	dc:subject :cat_science ;
+	void:uriSpace "http://data.ub.uio.no/acm-ccs-ubo/";
+	skosmos:mainConceptScheme <http://data.ub.uio.no/acm-ccs-ubo/>;
+	skosmos:language "en";
+	skosmos:defaultLanguage "en";
+	skosmos:showTopConcepts "true";
+	skosmos:showChangeList "false";
+	skosmos:showStatistics "true" ;
+	skosmos:shortName "MSC/UBO";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/acm-ccs-ubo> .
+
+:bokbasen a skosmos:Vocabulary, void:Dataset ;
+	dc:title "Bokbasen"@en,
+		"Bokbasen"@nn,
+		"Bokbasen"@nb ;
+	dc:subject :cat_general;
+	void:uriSpace "http://ns.boknett.no/";
+	skosmos:mainConceptScheme <http://ns.boknett.no/thesaurus>;
+	skosmos:language "nb", "nn";
+	skosmos:defaultLanguage "nb";
+	skosmos:showTopConcepts "true";
+	skosmos:showChangeList "false";
+	skosmos:showStatistics "true" ;
+	skosmos:shortName "Bokbasen";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/bokbasen> .
+
+:ebu-roles a skosmos:Vocabulary, void:Dataset ;
+	dc:title "EBU SKOS Classification Scheme for Role Codes"@en;
+	dc:subject :cat_general ;
+	void:uriSpace "http://www.ebu.ch/metadata/ontologies/";
+	skosmos:mainConceptScheme <http://www.ebu.ch/metadata/ontologies/skos/ebu_RoleCodeCS>;
+	skosmos:language "en";
+	skosmos:defaultLanguage "en";
+	skosmos:showTopConcepts "true";
+	skosmos:showChangeList "false";
+	skosmos:showStatistics "true" ;
+	skosmos:shortName "EBUroles";
+	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
+	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
+	skosmos:sparqlGraph <http://data.ub.uio.no/ebu-roles> .
+
 :categories a skos:ConceptScheme;
 	skos:prefLabel "Vocabularies"@en ,
 		"Vokabular"@nb ,

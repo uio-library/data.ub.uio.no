@@ -47,6 +47,11 @@ $datasets = array(
         'git' => 'https://github.com/scriptotek/usvd',
         'freq' => 'irregularly',
     ),
+    'msc-ubo' => array(
+        'title' => 'MSC-UBO: MSC 1970-based classification scheme used at UiO',
+        'git' => 'https://github.com/realfagstermer/msc-ubo',
+        'freq' => 'irregularly',
+    ),
 );
 
 function fsize_hr($f) {
@@ -65,6 +70,20 @@ function dataset_file($f, $files) {
     }
 }
 
+function dataset_files($files, $pattern) {
+    $ret = '';
+    foreach ($files as $fname) {
+        if (preg_match($pattern, $fname)) {
+            $setname = explode('.', $fname)[0];
+            $ret .= "<li>$setname: " . dataset_file($fname, $files) . "</li>";
+        }
+    }
+    if (empty($ret)) {
+        return '<em>not available</em>';
+    }
+    return $ret;
+}
+
 foreach ($datasets as $dataset => $details) {
     echo '<h2><a class="anchor" name="' . $dataset . '">'. $details['title'] . '</a></h2>';
     $files = glob($dataset . '*');
@@ -78,11 +97,20 @@ foreach ($datasets as $dataset => $details) {
     }
     echo '</p>';
     echo '<ul>';
-
-    echo '  <li>Core vocabulary + mappings as MARC21: ' . dataset_file($dataset .'.marc21.xml', $files) . '</li>';
-    echo '  <li>Core vocabulary (without mappings) as RDF/Turtle: ' . dataset_file($dataset .'.ttl', $files) . '</li>';
-    echo '  <li>Core vocabulary + mappings as RDF/Turtle: ' . dataset_file($dataset .'.complete.ttl', $files) . '</li>';
-    echo '  <li>Mappings only as RDF/Turtle: ' . dataset_file($dataset .'.mappings.ttl', $files) . '</li>';
+    echo '  <li>Vocabulary as MARC21: ';
+    echo dataset_file($dataset .'.marc21.xml', $files);
+    echo '  </li>';
+    echo '  <li>Vocabulary + mappings:<ul>';
+    echo '    <li>as RDF/Turtle: ' . dataset_file($dataset .'.complete.ttl', $files) . '</li>';
+    echo '    <li>as N-Triples: ' . dataset_file($dataset .'.complete.nt', $files) . '</li>';
+    echo '  </ul></li>';
+    echo '  <li>Vocabulary without mappings:<ul>';
+    echo '    <li>as RDF/Turtle: ' . dataset_file($dataset .'.ttl', $files) . '</li>';
+    echo '    <li>as N-Triples: ' . dataset_file($dataset .'.nt', $files) . '</li>';
+    echo '  </ul></li>';
+    echo '  <li>Mappings as N-Triples:<ul>';
+    echo dataset_files($files, "/\.mappings.nt$/");
+    echo '  </ul></li>';
 
     // foreach ($files as $f) {
     //     echo '<li><a href="' . $f . '">' . $f . '</a> (' . $fsize . ')</li>';
