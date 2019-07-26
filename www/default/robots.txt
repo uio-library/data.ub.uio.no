@@ -1,0 +1,4 @@
+# Avoid duplicate indexing from Skosmos: nn,en,nb
+User-agent: *
+Disallow: /skosmos/realfagstermer/nn/
+Disallow: /skosmos/realfagstermer/en/
