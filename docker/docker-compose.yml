@@ -12,7 +12,6 @@ services:
   fuseki:
     build: fuseki
     restart: always
-    init: true  # Signal forwarding with Tini
     environment:
      - JVM_ARGS=-Xmx4g
     volumes:
