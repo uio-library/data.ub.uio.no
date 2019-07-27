@@ -1,6 +1,7 @@
 FROM stain/jena-fuseki:3.10.0
 
 # RUN mkdir -p /fuseki/index && mkdir -p /fuseki/tdb
-COPY config.ttl /jena-fuseki/config.ttl
+COPY start.sh shiro.ini config.ttl /jena-fuseki/
 
-CMD ["/jena-fuseki/fuseki-server", "--update", "--config", "config.ttl"]
+# Husk: signal forwarding: `init=true` i docker-compose.yml, eller `docker run --init`
+CMD ["/jena-fuseki/start.sh"]
