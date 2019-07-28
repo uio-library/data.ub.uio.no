@@ -20,6 +20,7 @@ services:
     restart: always
     environment:
      - JVM_ARGS=-Xmx4g
+     - ADMIN_PASSWORD
     volumes:
      - fuseki_data:/fuseki
     ports:
