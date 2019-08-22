@@ -75,7 +75,7 @@
 	dc:subject :cat_general ;
 	void:uriSpace "http://data.ub.uio.no/humord/";
 	skosmos:mainConceptScheme <http://data.ub.uio.no/humord/>;
-	skosmos:groupClass isothes:ConceptGroup ;
+	# skosmos:groupClass isothes:ConceptGroup ;
 	skosmos:arrayClass isothes:ThesaurusArray ;
 	skosmos:language "nb";
 	skosmos:defaultLanguage "nb";
