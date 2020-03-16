@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # Stage 1
-FROM php:7.3-apache AS builder
+FROM php:7.4-apache AS builder
 
 # 458 MB
 
@@ -21,8 +21,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer global require hirak/prestissimo
 
 # Checkout the site
-RUN git clone --depth 1 --branch mappings-api \
-	https://github.com/danmichaelo/Skosmos /app
+RUN git clone --depth 1 https://github.com/NatLibFi/Skosmos.git /app
 
 # 543 MB
 
@@ -35,7 +34,7 @@ RUN rm -rf tests tools .git
 
 # ---------------------------------------------------------------------------
 # Stage 2
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 WORKDIR /app
 
