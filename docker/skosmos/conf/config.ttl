@@ -78,6 +78,7 @@
 	# skosmos:groupClass isothes:ConceptGroup ;
 	skosmos:arrayClass isothes:ThesaurusArray ;
 	skosmos:language "nb";
+	skosmos:language "nb", "en";
 	skosmos:defaultLanguage "nb";
 	skosmos:showTopConcepts "true";
 	skosmos:shortName "HUME";
