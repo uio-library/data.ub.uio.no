@@ -40,7 +40,7 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get -y install locales && \
-    sed -i 's/^# *\(en_US.UTF-8\|fi_NO.UTF-8\|nb_NO.UTF-8\|nn_NO.UTF-8\|sv_SE.UTF-8\)/\1/' /etc/locale.gen && \
+    sed -i 's/^# *\(en_GB.UTF-8\|en_US.UTF-8\|fi_NO.UTF-8\|nb_NO.UTF-8\|nn_NO.UTF-8\|sv_SE.UTF-8\)/\1/' /etc/locale.gen && \
     locale-gen
 
 ENV LANG=en_US.UTF-8 \
