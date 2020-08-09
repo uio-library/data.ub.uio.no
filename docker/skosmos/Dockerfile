@@ -6,11 +6,11 @@ FROM php:7.4-apache AS builder
 
 WORKDIR /app/
 
-RUN apt-get update && apt-get -y install git unzip
+RUN apt-get update && apt-get -y install git unzip libxml2-dev libxslt1-dev
 
 # 495MB
 
-RUN docker-php-ext-install gettext
+RUN docker-php-ext-install gettext xsl intl
 
 # 495MB
 
@@ -39,14 +39,14 @@ FROM php:7.4-apache
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get -y install locales && \
+    apt-get -y install locales libxml2-dev libxslt1-dev && \
     sed -i 's/^# *\(en_GB.UTF-8\|en_US.UTF-8\|fi_NO.UTF-8\|nb_NO.UTF-8\|nn_NO.UTF-8\|sv_SE.UTF-8\)/\1/' /etc/locale.gen && \
     locale-gen
 
 ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8
 
-RUN docker-php-ext-install gettext
+RUN docker-php-ext-install gettext xsl intl
 
 RUN docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install opcache

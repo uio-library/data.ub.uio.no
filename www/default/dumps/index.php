@@ -16,7 +16,9 @@
 <h1><a href="/">data.ub.uio.no</a> / dumps</h1>
 
 <p>
-  All data available under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 license</a>.
+  All data available under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 license</a>,
+  except Norwegian WebDewey, which is (probably) only available under
+<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 Unported</a>.
 </p>
 
 <?php
@@ -31,12 +33,12 @@ $datasets = array(
         'title' => 'REAL: Realfagstermer',
         'git' => 'https://github.com/realfagstermer/realfagstermer',
         'skosmos' => 'https://skosmos.biblionaut.net/realfagstermer/',
-        'freq' => 'hourly on changes',
+        'freq' => 'hourly upon changes',
     ),
     'mrtermer' => array(
         'title' => 'SMR: Menneskerettighetstermer',
         'git' => 'https://github.com/realfagstermer/mrtermer',
-        'freq' => 'now and then',
+        'freq' => 'irregularly',
     ),
     'lskjema' => array(
         'title' => 'UJUR: L-skjema (Juridiske emneord)',
@@ -50,6 +52,10 @@ $datasets = array(
     'msc-ubo' => array(
         'title' => 'MSC-UBO: MSC 1970-based classification scheme used at UiO',
         'git' => 'https://github.com/realfagstermer/msc-ubo',
+        'freq' => 'irregularly',
+    ),
+    'wdno' => array(
+        'title' => 'WDNO: Norsk WebDewey (DDC 23)',
         'freq' => 'irregularly',
     ),
 );
@@ -97,16 +103,16 @@ foreach ($datasets as $dataset => $details) {
     }
     echo '</p>';
     echo '<ul>';
-    echo '  <li>Vocabulary as MARC21: ';
-    echo dataset_file($dataset .'.marc21.xml', $files);
-    echo '  </li>';
-    echo '  <li>Vocabulary + mappings:<ul>';
-    echo '    <li>as RDF/Turtle: ' . dataset_file($dataset .'.complete.ttl', $files) . '</li>';
-    echo '    <li>as N-Triples: ' . dataset_file($dataset .'.complete.nt', $files) . '</li>';
-    echo '  </ul></li>';
-    echo '  <li>Vocabulary without mappings:<ul>';
+    echo '  <li>Core vocabulary:<ul>';
     echo '    <li>as RDF/Turtle: ' . dataset_file($dataset .'.ttl', $files) . '</li>';
     echo '    <li>as N-Triples: ' . dataset_file($dataset .'.nt', $files) . '</li>';
+    echo '  </ul></li>';
+    echo '  <li>Core vocabulary as MARC21: ';
+    echo dataset_file($dataset .'.marc21.xml', $files);
+    echo '  </li>';
+    echo '  <li>Core vocabulary + mappings:<ul>';
+    echo '    <li>as RDF/Turtle: ' . dataset_file($dataset .'.complete.ttl', $files) . '</li>';
+    echo '    <li>as N-Triples: ' . dataset_file($dataset .'.complete.nt', $files) . '</li>';
     echo '  </ul></li>';
     echo '  <li>Mappings as N-Triples:<ul>';
     echo dataset_files($files, "/\.mappings.nt$/");
