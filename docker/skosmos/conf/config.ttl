@@ -81,6 +81,7 @@
 	skosmos:language "nb", "en";
 	skosmos:defaultLanguage "nb";
 	skosmos:showTopConcepts "true";
+	skosmos:showChangeList "true";
 	skosmos:shortName "HUME";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
