@@ -18,7 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # 497 MB
 
-RUN composer global require hirak/prestissimo
+# RUN composer global require hirak/prestissimo
 
 # Checkout the site
 RUN git clone --depth 1 https://github.com/NatLibFi/Skosmos.git /app
