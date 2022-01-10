@@ -104,6 +104,11 @@ text:TextIndexLucene  rdfs:subClassOf   text:TextIndex .
              text:filters (text:LowerCaseFilter)
            ]
          ]
+         # skos:notation
+         [ text:field "notation" ;
+            text:predicate skos:notation ;
+            text:analyzer [ a text:LowerCaseKeywordAnalyzer ]
+         ]
     ) .
 
 
