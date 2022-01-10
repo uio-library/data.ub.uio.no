@@ -130,6 +130,7 @@
 	skosmos:defaultLanguage "nb";
 	skosmos:showTopConcepts "false";
 	skosmos:showChangeList "true";
+    skosmos:showDeprecatedChanges "true";
 	skosmos:shortName "REAL";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	skosmos:groupClass skos:Collection ;
@@ -181,6 +182,8 @@
 	skosmos:showTopConcepts "true";
 	skosmos:showChangeList "true";
 	skosmos:showStatistics "false" ;
+    skosmos:alphabeticalListQualifier skos:notation ;
+    skosmos:searchByNotation "true";
 	skosmos:shortName "DDC";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
@@ -198,6 +201,8 @@
 	skosmos:showTopConcepts "true";
 	skosmos:showChangeList "false";
 	skosmos:showStatistics "true" ;
+    skosmos:alphabeticalListQualifier skos:notation ;
+    skosmos:searchByNotation "true";
 	skosmos:shortName "MSC/UBO";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
@@ -216,6 +221,8 @@
 	skosmos:showChangeList "false";
 	skosmos:showStatistics "true" ;
 	skosmos:shortName "MSC/UBO";
+    skosmos:alphabeticalListQualifier skos:notation ;
+    skosmos:searchByNotation "true";
 	skosmos:feedbackRecipient "d.m.heggo@ub.uio.no" ;
 	void:sparqlEndpoint <http://fuseki_cache:80/ds/sparql> ;
 	skosmos:sparqlGraph <http://data.ub.uio.no/acm-ccs-ubo> .
