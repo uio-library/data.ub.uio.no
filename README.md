@@ -10,7 +10,7 @@ Under finner du grunnleggende informasjon om installasjonen og hvordan man feils
 - DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, sannsynlig at feilen ligger hos dem
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
-- Sjekk at det er diskplass i /etc/, /var/, /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, kjør systemctl restart varnish.
+- Sjekk at det er diskplass i /etc/, /var/, /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, start om httpd, fuseki, varnish (systemctl restart ...).
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
@@ -39,7 +39,8 @@ Skosmos er avhengig av:
 
 Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med en ny installasjon uten å gjøre backup av dem.
 
-# Old
+
+# Old - historical purpose only
 ## Init
 
     git submodule init
