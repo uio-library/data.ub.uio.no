@@ -1,5 +1,5 @@
 # data.ub.uio.no (ub-data)
-data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfellet, da Skosmos og avhengighetene dens er installert direkte på ub-data.
+data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfelle, da Skosmos og avhengighetene dens er installert direkte på ub-data.
 
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
