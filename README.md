@@ -1,4 +1,45 @@
+# data.ub.uio.no (ub-data)
+data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfellet, da Skosmos og avhengighetene dens er installert direkte på ub-data.
 
+Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
+
+## Feilsøking
+### Skosmos-vokabular oppdateres ikke
+- Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen.
+- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt
+- DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, sannsynlig at feilen ligger hos dem
+
+### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
+- Sjekk at det er diskplass i /etc/, /var/, /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, kjør systemctl restart varnish.
+- Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
+- Sjekk httpd-regler for endringer
+- Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
+
+### Skosmos er helt borte eller løsningen over fungerte ikke
+- systemctl restart httpd
+- systemctl restart fuseki
+- systemctl restart varnish
+
+## Grunnleggende informasjon
+Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael - i hans egne ord, Frankenstein. Koden er ikke veldig godt dokumentert, og fungerer for det meste så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Også brukt er en slags RDF-linting. Prosessen er svært omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
+
+Den gyldne regel er inntil videre å ikke røre med mindre noe ikke fungerer.
+
+### Avhengigheter
+Skosmos er avhengig av:
+- Fuseki
+- JenaText
+- httpd
+- Roald3 (Python) (**MODIFISERT**)
+- data_ub_tasks (**MODIFISERT**)
+- en haug andre Python-bibliotek
+- Varnish
+- Server hos SIKT (IP-begrenset, autentisering med passord, Bibsys)
+- Server hos WebDewey (IP-begrenset, Tyskland)
+
+Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med en ny installasjon uten å gjøre backup av dem.
+
+# Old
 ## Init
 
     git submodule init
