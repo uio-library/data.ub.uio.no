@@ -21,9 +21,9 @@ Under finner du grunnleggende informasjon om installasjonen og hvordan man feils
 - systemctl restart varnish
 
 ## Grunnleggende informasjon
-Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael - i hans egne ord, Frankenstein. Koden er ikke veldig godt dokumentert, og fungerer for det meste så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Også brukt er en slags RDF-linting. Prosessen er svært omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
+Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
 
-Den gyldne regel er inntil videre å ikke røre med mindre noe ikke fungerer.
+Den gyldne regel er med andre ord å ikke røre med mindre noe ikke fungerer.
 
 ### Avhengigheter
 Skosmos er avhengig av:
@@ -37,10 +37,10 @@ Skosmos er avhengig av:
 - Server hos SIKT (IP-begrenset, autentisering med passord, Bibsys)
 - Server hos WebDewey (IP-begrenset, Tyskland)
 
-Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med en ny installasjon uten å gjøre backup av dem.
+Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som finnes i dette repository-et.
 
 
-# Old - historical purpose only
+# Old - for historical purposes only
 ## Init
 
     git submodule init
