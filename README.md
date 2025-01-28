@@ -4,6 +4,9 @@ data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne p�
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
 ## Feilsøking
+### "Mystisk" feilmelding på mail uten ID
+Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele saken og send til dem på mail.
+
 ### Skosmos-vokabular oppdateres ikke
 - Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen.
 - Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt
