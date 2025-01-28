@@ -1,5 +1,5 @@
 # data.ub.uio.no (ub-data)
-data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfelle, da Skosmos og avhengighetene dens er installert direkte på ub-data.
+data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfelle, da Skosmos og avhengighetene dens er installert direkte på ub-data. Skosmos betjener i dag Humord, Realfagstermer og Norsk WebDewey. Andre vokabular finnes på tjeneren, men er avpublisert.
 
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
@@ -36,6 +36,7 @@ Skosmos er avhengig av:
 - Fuseki
 - JenaText
 - httpd
+- Kildemateriale som ikke hentes fra andre servere men som kun ligger lokalt
 - Roald3 (Python) (**MODIFISERT**)
 - data_ub_tasks (**MODIFISERT**)
 - en haug andre Python-bibliotek
@@ -43,7 +44,7 @@ Skosmos er avhengig av:
 - Server hos SIKT (IP-begrenset, autentisering med passord, Bibsys)
 - Server hos WebDewey (IP-begrenset, Tyskland)
 
-Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som finnes i dette repository-et.
+Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som er her. Du må heller **ikke** slette src-mappen under vokabularene.
 
 
 # Old - for historical purposes only
