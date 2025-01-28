@@ -4,24 +4,27 @@ data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne p�
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
 ## Feilsøking
-### "Mystisk" feilmelding på mail uten ID
-Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele saken og send til dem på mail.
+### "Mystisk" feilmelding på mail med lang ID som ikke er Humord-ID
+Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele saken og send til dem på mail. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
 
 ### Skosmos-vokabular oppdateres ikke
-- Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen.
-- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt
-- DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, sannsynlig at feilen ligger hos dem
+- Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
+- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale.
+- DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, men ikke usannsynlig at feilen ligger hos dem.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
-- Sjekk at det er diskplass i /etc/, /var/, /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, start om httpd, fuseki, varnish (systemctl restart ...).
+- Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, start om httpd, fuseki, varnish (systemctl restart ...).
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
 
 ### Skosmos er helt borte eller løsningen over fungerte ikke
-- systemctl restart httpd
-- systemctl restart fuseki
-- systemctl restart varnish
+1. systemctl restart httpd
+2. systemctl restart fuseki
+3. systemctl restart varnish
+
+#### Løsningen over fungerte ikke
+Ring Dan Michael.
 
 ## Grunnleggende informasjon
 Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
