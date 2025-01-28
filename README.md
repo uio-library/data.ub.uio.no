@@ -13,7 +13,7 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 - DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, men ikke usannsynlig at feilen ligger hos dem.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
-- Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. Deretter, start om httpd, fuseki, varnish (systemctl restart ...).
+- Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. **Deretter, start om httpd, fuseki, varnish** (systemctl restart ...).
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
