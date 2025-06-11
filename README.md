@@ -17,6 +17,10 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
+#### /srv/ er full fordi Fuseki er blit T Y K K
+- Steng fuseki og apache.
+- Følg protokoll for å lage kopi av Fuseki-databasen.
+- Omstart av fuseki og apache.
 
 ### Skosmos er helt borte eller løsningen over fungerte ikke
 1. systemctl restart httpd
