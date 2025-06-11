@@ -26,6 +26,8 @@ lang3Map = {
     'nn': 'nno',
     'en': 'eng',
     'la': 'lat',
+    'se': 'sme',
+    'fkv': 'fkv' 
 }
 
 
@@ -86,7 +88,7 @@ class Marc21(Adapter):
             if self.mailer is not None:
                 self.mailer.send(
                     'Importen av %s feila' % self.vocabulary_code,
-                    'Følgende poster har problemer:' + hline + hline.join(errors) + hline 
+                    'FÃ¸lgende poster har problemer:' + hline + hline.join(errors) + hline 
                 )
             raise Exception("Errors occured during import. Mail sent.")
 
@@ -207,7 +209,7 @@ class Marc21(Adapter):
             # Mrtermer har ingen datoer(!)
             created = isodate.isodatetime.datetime(2010, 1, 1)
             modified = isodate.isodatetime.datetime(2010, 1, 1)
-            # or… isodate.isodatetime.datetime.now()
+            # orâ€¦ isodate.isodatetime.datetime.now()
         elif created is None:
             created = modified
 
@@ -418,7 +420,7 @@ class Marc21(Adapter):
                                 'GenreForm': 'v',
                             }[component['type'][0]]
 
-                            # OBS! 150 har også $b.. Men når brukes egentlig den??
+                            # OBS! 150 har ogsÃ¥ $b.. Men nÃ¥r brukes egentlig den??
                             sf_term = component.prefLabel[lang]
                             out_term.append([sf, sf_term.value])
 
@@ -644,8 +646,14 @@ class Marc21(Adapter):
                         obj.set('prefLabel.en', Label(sf['a']))
                     elif sf.get('9') == 'eng':
                         obj.add('altLabel.en', Label(sf['a']))
+                    elif sf.get('9') == "nno1":
+                        obj.add('altLabel.nn', Label(sf['a'])) # Nynorsk.
+                    elif sf.get('9') == "sme1":
+                        obj.add('altLabel.se', Label(sf['a'])) # Nord-Samisk.
+                    elif sf.get('9') == "fkv1":
+                        obj.add('altLabel.fkv', Label(sf['a'])) # Kvensk
                     else:
-                        obj.add('altLabel.nb', Label(sf['a']))
+                        obj.add('altLabel.nb', Label(sf['a'])) # SÃ¥kalt fallback.
                 elif tag.startswith('5'):
                     if sf.get('w') == 'g':
                         obj.add('broader', self.validate_identifier(sf['0'].replace('(NO-TrBIB)', ''), '5XX$0'))
