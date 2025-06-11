@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 ISOTHES = Namespace('http://purl.org/iso25964/skos-thes#')
 MADS = Namespace('http://www.loc.gov/mads/rdf/v1#')
 SD = Namespace('http://www.w3.org/ns/sparql-service-description#')
-LOCAL = Namespace('http://data.ub.uio.no/onto#') # må være data.ub.uio.no/onto# - ellers blir det "humord:onto#Topic" (????)
+LOCAL = Namespace('http://data.ub.uio.no/onto#') # mÃ¥ vÃ¦re data.ub.uio.no/onto# - ellers blir det "humord:onto#Topic" (????)
 UOC = Namespace('http://trans.biblionaut.net/class#')
 
 
@@ -138,7 +138,7 @@ class Skos(Adapter):
         logger.info('Begin CCMapper')
         # Load number of ccmapper mapping candidates
         for tr in graph.triples((None, LOCAL.ccmapperCandidates, None)):
-            logger.info(tr)
+            #logger.info(tr)
             source_concept = tr[0]
             res_id = self.vocabulary.id_from_uri(source_concept)
             if res_id is not None:
@@ -383,11 +383,16 @@ class Skos(Adapter):
             fallback_lang = 'nb'
             for lang in ['nb', 'nn', 'en']:
                 labels = [component['prefLabel'].get(lang, component['prefLabel'].get(fallback_lang)) for component in components]
+                logger.info(labels)
                 labels = [component.value for component in labels if component]
                 # labels = [c.prefLabel[lang].value for c in components if c['prefLabel'].get(lang, fallback_lang)]
+                logger.info(labels)
+                #raise KeyboardInterrupt('INTENTIONAL CRASH - DISREGARD')
                 if len(labels) == len(components):
                     streng = resources.string_separator.join(labels)
                     graph.add((uri, SKOS.prefLabel, Literal(streng, lang=lang)))
+                else:
+                    logger.info("label error")
 
             component_uris = [URIRef(self.vocabulary.uri(c['id'])) for c in components]
 
