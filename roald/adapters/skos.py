@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 ISOTHES = Namespace('http://purl.org/iso25964/skos-thes#')
 MADS = Namespace('http://www.loc.gov/mads/rdf/v1#')
 SD = Namespace('http://www.w3.org/ns/sparql-service-description#')
-LOCAL = Namespace('http://data.ub.uio.no/onto#') # mÃ¥ vÃ¦re data.ub.uio.no/onto# - ellers blir det "humord:onto#Topic" (????)
+LOCAL = Namespace('http://data.ub.uio.no/onto#') # må være data.ub.uio.no/onto# - ellers blir det "humord:onto#Topic" (????)
 UOC = Namespace('http://trans.biblionaut.net/class#')
 
 
