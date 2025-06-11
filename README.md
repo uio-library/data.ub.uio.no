@@ -23,6 +23,13 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 2. systemctl restart fuseki
 3. systemctl restart varnish
 
+### Skosmos viser ikke et språk
+vim ..site-packages/roald/adapters/marc21.py
+
+Legg til språkkoden under linje 648.
+
+Legg til språkkoden i dicten som ligger nær toppen.
+
 #### Løsningen over fungerte ikke
 Ring Dan Michael.
 
@@ -44,8 +51,11 @@ Skosmos er avhengig av:
 - Server hos SIKT (IP-begrenset, autentisering med passord, Bibsys)
 - Server hos WebDewey (IP-begrenset, Tyskland)
 
-Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som er her. Du må heller **ikke** slette src-mappen under vokabularene.
+Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som er her. Du må heller **ikke** slette src-mappen under vokabularene uten å kopiere denne først.
 
+## Oppdateringer
+### 11.06.2025
+La til nord-samisk, kvensk, nynorsk som mulige språk for humord. Tidligere ble disse ansett som norsk bokmål.
 
 # Old - for historical purposes only
 ## Init
