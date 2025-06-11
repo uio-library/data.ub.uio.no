@@ -128,7 +128,7 @@ class Roald(object):
                 hline = '<br>-----------------------------------------------------<br>'
 #                self.mailer.send(
 #                    'Eksport av %s feila' % filename,
-#                    'Følgende problem oppsto:' + hline + str(error),
+#                    'FÃ¸lgende problem oppsto:' + hline + str(error),
 #                    '(XP) Utvidet feilrapportering:' + str(err_str) + hline
 #                )
                 self.mailer.send(
