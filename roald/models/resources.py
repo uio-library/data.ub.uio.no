@@ -6,7 +6,6 @@ from copy import deepcopy
 from six import text_type
 from ..util import array_set, array_add, array_get
 from ..errors import InvalidDataException
-
 try:
     from functools import reduce  # Python
 except:
@@ -261,7 +260,7 @@ class Resources(object):
 
         for el in data:
             rid = el['id']
-
+#            print(rid)
             if isinstance(el, Resource):
                 instance = el
             else:
@@ -275,11 +274,16 @@ class Resources(object):
                     instance = Category().load(el)
                 else:
                     instance = Concept().load(el)
-
             self._resources.append(instance)
             self._resource_from_id[rid] = instance
-
+#            print(instance.prefLabel.items())
+#            print(instance.altLabel.items())
             for lang, label in instance.prefLabel.items():
+                if type(label) == list: # "Midlertidig" fiks for å tillate prefLabels på kvensk, nynorsk, latin osv. Disse blir lagt til som en dict{"la":["liste"]}
+                    if len(label) == 1: # Dersom det bare er ett objekt i lista
+                        label = label[0] # tar vi bare det objektet
+                    else: # hvis ikke
+                        raise ValueError(f"Språkkoden <b>{lang}</b> har {len(label)} innførsler for prefLabel: {label}<br><br>Kontekst med alle prefLabels: {instance.prefLabel.items()}") # sender vi en advarsel
                 array_set(self._id_from_term, text_type('{}.{}').format(label.value, lang), rid)
                 array_set(self._term_from_id, text_type('{}.{}').format(rid, lang), label.value)
 
@@ -290,7 +294,6 @@ class Resources(object):
                 languages = [set(x.prefLabel.keys()) for x in components]
                 # Reduce to languages shared by all components
                 languages = reduce(lambda x, y: x.intersection(y), languages)
-
                 for lang in languages:
                     term = self.string_separator.join([x.get('prefLabel.{}'.format(lang)).value for x in components])
                     array_set(self._id_from_term, text_type('{}.{}').format(term, lang), rid)

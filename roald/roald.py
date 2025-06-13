@@ -90,7 +90,24 @@ class Roald(object):
             Skos(self.vocabulary).load(filename)
         elif format == 'marc21':
             self.vocabulary.default_language = languages.get(alpha2=language)
-            Marc21(self.vocabulary, mailer=self.mailer).load(filename, **kwargs)
+            try:
+                Marc21(self.vocabulary, mailer=self.mailer).load(filename, **kwargs)
+            except Exception as error:
+                if self.mailer is not None:
+                    err_str = '<br>'.join(traceback.format_exception(type(error), error, error.__traceback__))
+                    hline = '<br>-----------------------------------------------------<br>'
+    #                self.mailer.send(
+    #                    'Eksport av %s feila' % filename,
+    #                    'Følgende problem oppsto:' + hline + str(error),
+    #                    '(XP) Utvidet feilrapportering:' + str(err_str) + hline
+    #                )
+                    self.mailer.send(
+                        'Feil under import av %s' % filename,
+                        "<br>Rapport:<br>" + str(error) + hline + "<br>"
+                    )
+                    quit
+                    raise Exception("Errors occured during import. Mail sent.")
+                raise error
         else:
             raise ValueError('Unknown format')
 
@@ -124,7 +141,7 @@ class Roald(object):
             prepared.write(filename)
         except Exception as error:
             if self.mailer is not None:
-                err_str = ''.join(traceback.format_exception(type(error), error, error.__traceback__))
+                err_str = '<br>'.join(traceback.format_exception(type(error), error, error.__traceback__))
                 hline = '<br>-----------------------------------------------------<br>'
 #                self.mailer.send(
 #                    'Eksport av %s feila' % filename,

@@ -646,12 +646,23 @@ class Marc21(Adapter):
                         obj.set('prefLabel.en', Label(sf['a']))
                     elif sf.get('9') == 'eng':
                         obj.add('altLabel.en', Label(sf['a']))
-                    elif sf.get('9') == "nno1":
-                        obj.add('altLabel.nn', Label(sf['a'])) # Nynorsk.
-                    elif sf.get('9') == "sme1":
+                    elif sf.get('9') == 'nno1':
+                        obj.add('prefLabel.nn', Label(sf['a'])) # Nynorsk prefLabel.
+                    elif sf.get('9') == 'nno':
+                        obj.add('altLabel.nn', Label(sf['a'])) # Nynorsk altLabel.
+                    elif sf.get('9') == 'sme1':
+                        obj.add('prefLabel.se', Label(sf['a'])) # Nord-Samisk.
+                    elif sf.get('9') == 'sme':
                         obj.add('altLabel.se', Label(sf['a'])) # Nord-Samisk.
-                    elif sf.get('9') == "fkv1":
+                    elif sf.get('9') == 'fkv1':
+                        obj.add('prefLabel.fkv', Label(sf['a'])) # Kvensk
+                    elif sf.get('9') == 'fkv':
                         obj.add('altLabel.fkv', Label(sf['a'])) # Kvensk
+                    elif sf.get('9') == 'lat1':
+                        obj.add('prefLabel.la', Label(sf['a'])) # Latin
+                        logger.info(obj)
+                    elif sf.get('9') == 'lat':
+                        obj.add('altLabel.la', Label(sf['a'])) # Latin
                     else:
                         obj.add('altLabel.nb', Label(sf['a'])) # Såkalt fallback.
                 elif tag.startswith('5'):
