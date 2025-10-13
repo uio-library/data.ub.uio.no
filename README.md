@@ -9,7 +9,7 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 
 ### Skosmos-vokabular oppdateres ikke
 - Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
-- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale.
+- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering.
 - DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, men ikke usannsynlig at feilen ligger hos dem.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
@@ -52,11 +52,12 @@ Med eller som sudo. Følgende brukes stort sett når det er oppbygning av søppe
 11. rm -r /srv/fuseki/databases/skosmos-y
 12. Følg protokoll for manuell oppdatering av det individuelle vokabularet for å bygge opp ny tekstindeks
 
-## Protokoll for manuell oppdatering av vokabularet (eksempel viser for Humord)
-Merk at kildematerialet eksporteres fra Alma kun én gang om dagen (om morgenen). Ingen vits å spamme oppdateringer. Med eller som sudo:
-1. rm dist/humord.complete.ttl
-2. cd /srv/vocabs/humord && source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
-3. systemctl restart varnish
+## Protokoll for manuell oppdatering av vokabularet
+Merk at kildematerialet eksporteres fra Alma kun én gang om dagen (om morgenen). Ingen vits å spamme oppdateringer. Erstatt {*VOKABULAR*} med et eksisterende vokabular iflg mappestrukturen. Med eller som sudo:
+1. cd /srv/vocabs/{*VOKABULAR*}
+2. dist/{*VOKABULAR*}.complete.ttl
+3. source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
+4. systemctl restart varnish
 
 ## Grunnleggende informasjon
 Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
