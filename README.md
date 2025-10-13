@@ -17,15 +17,9 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
-#### /srv/ er full fordi Fuseki er blitt T Y K K
-- Steng fuseki og apache.
-- Følg protokoll for å lage kopi av Fuseki-databasen.
-- Omstart av fuseki og apache.
-
-### Skosmos er helt borte eller løsningen over fungerte ikke
-1. systemctl restart httpd
-2. systemctl restart fuseki
-3. systemctl restart varnish
+  
+### /srv/ er full fordi Fuseki er blitt T Y K K
+- Følg protokoll for rens av Fuseki-databasen under.
 
 ### Skosmos viser ikke et språk
 vim ..site-packages/roald/adapters/marc21.py
@@ -34,8 +28,35 @@ Legg til språkkoden under linje 648.
 
 Legg til språkkoden i dicten som ligger nær toppen.
 
+### Skosmos er helt borte eller løsningen(e) over fungerte ikke
+1. systemctl restart httpd
+2. systemctl restart fuseki
+3. systemctl restart varnish
+4. systemctl httpd
+
 #### Løsningen over fungerte ikke
 Ring Dan Michael.
+
+## Protokoll for rens av Fuseki
+Med eller som sudo. Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv.
+1. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
+2. Finn siste fil i /srv/fuseki/backups/ = ***X***
+3. systemctl stop fuseki varnish
+4. mv -r /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
+5. mkdir /srv/fuseki/databases/skosmos-x
+6. cd /srv/fuseki/databases/
+7. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***X***
+8. restorecon -v -r /srv/fuseki/databases/skosmos-x
+9. chown -R fuseki:fuseki /srv/fuseki/databases/skosmos-x
+10. systemctl start fuseki varnish
+11. rm -r /srv/fuseki/databases/skosmos-y
+12. Følg protokoll for manuell oppdatering av det individuelle vokabularet for å bygge opp ny tekstindeks
+
+## Protokoll for manuell oppdatering av vokabularet (eksempel viser for Humord)
+Merk at kildematerialet eksporteres fra Alma kun én gang om dagen (om morgenen). Ingen vits å spamme oppdateringer. Med eller som sudo:
+1. rm dist/humord.complete.ttl
+2. cd /srv/vocabs/humord && source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
+3. systemctl restart varnish
 
 ## Grunnleggende informasjon
 Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord og Realfagstermer er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
