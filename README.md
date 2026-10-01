@@ -41,7 +41,7 @@ Med eller som sudo. Følgende brukes stort sett når det er oppbygning av søppe
 1. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
 2. Finn siste fil i /srv/fuseki/backups/ = ***X***
 3. systemctl stop fuseki varnish
-4. mv -r /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
+4. mv /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
 5. mkdir /srv/fuseki/databases/skosmos-x
 6. cd /srv/fuseki/databases/
 7. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***X***
