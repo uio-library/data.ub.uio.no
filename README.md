@@ -1,5 +1,5 @@
 # data.ub.uio.no (ub-data)
-data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfelle, da Skosmos og avhengighetene dens er installert direkte på ub-data. Skosmos betjener i dag Humord, Realfagstermer og Norsk WebDewey. Andre vokabular finnes på tjeneren, men er avpublisert.
+data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne på Docker. Nå er det ikke lenger tilfelle, da Skosmos og avhengighetene dens er installert direkte på ub-data. Skosmos betjener i dag Humord, Realfagstermer og Norsk WebDewey. Andre vokabular finnes på tjeneren, men er avpublisert. Realfagstermer er ikke lenger i drift per 01.10.2026.
 
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
@@ -9,8 +9,7 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 
 ### Skosmos-vokabular oppdateres ikke
 - Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
-- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering.
-- DDC (WDNO) er avhengig av et tysk system som er utilregnelig på det beste. Sjekk loggene, men ikke usannsynlig at feilen ligger hos dem.
+- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering. IKKE SLETT FRA /srv/.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
 - Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. **Deretter, start om httpd, fuseki, varnish** (systemctl restart ...).
