@@ -57,7 +57,7 @@ Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstinde
 
 ## Protokoll for manuell oppdatering av vokabularet
 ### Realfagstermer
-Realfagstermer er ikke i produksjon lenger og KAN IKKE OPPDATERES LENGER. Følgende bygger tekstindeksen opp igjen. Dette kreves av alfabetisk sortering og søk. Skal kun kjøres etter man har renset Fuseki-databasen.
+Realfagstermer er ikke i produksjon lenger og KAN IKKE OPPDATERES LENGER. Følgende bygger tekstindeksen opp igjen. Dette kreves av alfabetisk sortering og søk. **Skal kun kjøres etter man har utført protokoll for rens av Fuseki**!
 1. sudo su
 2. cd /srv/vocabs/realfag && source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit fuseki
 
