@@ -60,12 +60,11 @@ Realfagstermer er ikke i produksjon lenger og KAN IKKE OPPDATERES LENGER. Følge
 1. sudo su
 2. cd /srv/vocabs/realfag && source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit fuseki
 
-### Humord og Dewey
-Dette er for Humord og Dewey-vokabularene. Du skal IKKE gjøre følgende med Realfagstermer, den prosedyren er like ovenfor. Her: Erstatt {*VOKABULAR*} med et eksisterende vokabular iflg mappestrukturen. SUDO:
-1. cd /srv/vocabs/{*VOKABULAR*}
-2. rm dist/{*VOKABULAR*}.complete.ttl
-3. source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
-4. systemctl restart varnish
+### Humord
+Dette er for Humord. Du skal IKKE gjøre følgende med Realfagstermer, den prosedyren er like ovenfor. Her: Erstatt {*VOKABULAR*} med et eksisterende vokabular iflg mappestrukturen. SUDO:
+1. rm /srv/vocabs/humord/dist/humord.complete.ttl
+2. cd /srv/vocabs/humord/ && /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
+3. systemctl restart varnish
 
 ## Grunnleggende informasjon
 Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
