@@ -42,12 +42,12 @@ Ring Dan Michael.
 ## Protokoll for rens av Fuseki
 Med eller som sudo. Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv.
 1. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
-2. Finn siste fil i /srv/fuseki/backups/ = ***X***
+2. Finn siste fil i /srv/fuseki/backups/. Denne kaller vi for ***fil X***.
 3. systemctl stop fuseki varnish
 4. mv /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
 5. mkdir /srv/fuseki/databases/skosmos-x
 6. cd /srv/fuseki/databases/
-7. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***X***
+7. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***fil X***
 8. restorecon -v -r /srv/fuseki/databases/skosmos-x
 9. chown -R fuseki:fuseki /srv/fuseki/databases/skosmos-x
 10. systemctl start fuseki varnish
