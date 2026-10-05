@@ -8,7 +8,7 @@ Under finner du grunnleggende informasjon om installasjonen og hvordan man feils
 Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele posten og send til dem på mail. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
 
 ### Skosmos-vokabular oppdateres ikke
-- Kildematerialet til Humord oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
+- Kildematerialet til Humord oppdateres hver morgen. Dewey skal også gjøre dette, men underveis kan det oppstå feil og det krever mer tålmodighet enn Humord. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
 - Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering.
 - IKKE SLETT NOE ANNET FRA /srv/.
 
