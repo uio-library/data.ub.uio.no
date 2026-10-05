@@ -40,7 +40,7 @@ Legg til språkkoden i dicten som ligger nær toppen.
 Ring Dan Michael.
 
 ## Protokoll for rens av Fuseki
-Med eller som sudo. Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv.
+Som sudo. Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv. Ja, mappene heter skosmos-x og skosmos-y: jeg bruker symlenking for å la oss 'hot-swappe' mappene. Selv om vi ikke egentlig gjør det 'hot'.
 1. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
 2. Finn siste fil i /srv/fuseki/backups/. Denne kaller vi for ***fil X***.
 3. systemctl stop fuseki varnish
