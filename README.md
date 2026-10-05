@@ -5,14 +5,16 @@ Under finner du grunnleggende informasjon om installasjonen og hvordan man feils
 
 ## Feilsøking
 ### "Mystisk" feilmelding på mail med lang ID som ikke er Humord-ID
-Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele saken og send til dem på mail. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
+Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: cd til /srv/...humord/src. vim humord.complete.xml. Søk etter den lange IDen og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele posten og send til dem på mail. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
 
 ### Skosmos-vokabular oppdateres ikke
 - Kildematerialet til Humord og Realfagstermer oppdateres hver morgen. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
-- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering. IKKE SLETT FRA /srv/.
+- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering.
+- IKKE SLETT NOE ANNET FRA /srv/.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
 - Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. **Deretter, start om httpd, fuseki, varnish** (systemctl restart ...).
+- OBS: Dersom /srv/ er full, følg protokoll for rens av Fuseki-databasen under.
 - Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
 - Sjekk httpd-regler for endringer
 - Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
