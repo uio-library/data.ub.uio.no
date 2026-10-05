@@ -33,7 +33,8 @@ Legg til språkkoden i dicten som ligger nær toppen.
 1. systemctl restart httpd
 2. systemctl restart fuseki
 3. systemctl restart varnish
-4. systemctl httpd
+4. journalctl -f (se etter feil)
+5. er det feil med rettighetene? fuseki:ub-utv | 775 | 
 
 #### Løsningen over fungerte ikke
 Ring Dan Michael.
@@ -89,6 +90,9 @@ Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre
 ## Oppdateringer
 ### 11.06.2025
 La til nord-samisk, kvensk, nynorsk som mulige språk for humord. Tidligere ble disse ansett som norsk bokmål.
+
+# Almar
+Almar er et program skrevet av Dan Michael. Det pleier ikke å være noe galt med det med mindre noen nye skal ha tilgang på det. Få dem til å sshe inn på maskinen, deretter kopier innstillinger fra Vibeke eller noen andre til denne. Modifiser som ønsket. 
 
 # Old - for historical purposes only
 ## Init
