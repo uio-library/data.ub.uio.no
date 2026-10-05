@@ -40,19 +40,20 @@ Legg til språkkoden i dicten som ligger nær toppen.
 Ring Dan Michael.
 
 ## Protokoll for rens av Fuseki
-Som sudo. Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv. Ja, mappene heter skosmos-x og skosmos-y: jeg bruker symlenking for å la oss 'hot-swappe' mappene. Selv om vi ikke egentlig gjør det 'hot'.
-1. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
-2. Finn siste fil i /srv/fuseki/backups/. Denne kaller vi for ***fil X***.
-3. systemctl stop fuseki varnish
-4. mv /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
-5. mkdir /srv/fuseki/databases/skosmos-x
-6. cd /srv/fuseki/databases/
-7. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***fil X***
-8. restorecon -v -r /srv/fuseki/databases/skosmos-x
-9. chown -R fuseki:fuseki /srv/fuseki/databases/skosmos-x
-10. systemctl start fuseki varnish
-11. rm -r /srv/fuseki/databases/skosmos-y
-12. Følg protokoll for manuell oppdatering av det individuelle vokabularet for å bygge opp ny tekstindeks
+Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv. Ja, mappene heter skosmos-x og skosmos-y: jeg bruker symlenking for å la oss 'hot-swappe' mappene. Selv om vi ikke egentlig gjør det 'hot'.
+1. sudo su (om ikke allerede)
+2. curl -X POST localhost:3030/$/backup/skosmos ; dette tar vanligvis ikke mer enn ett minutt. curl -X GET localhost:3030/$/tasks/**TASK ID** for å sjekke status.
+3. Finn siste fil i /srv/fuseki/backups/. Denne kaller vi for ***fil X***.
+4. systemctl stop fuseki varnish
+5. mv /srv/fuseki/databases/skosmos-x /srv/fuseki/databases/skosmos-y
+6. mkdir /srv/fuseki/databases/skosmos-x
+7. cd /srv/fuseki/databases/
+8. /srv/apache-jena-5.2.0/bin/tdb2.tdbloader --loc skosmos-x /srv/fuseki/backups/***fil X***
+9. restorecon -v -r /srv/fuseki/databases/skosmos-x
+10. chown -R fuseki:fuseki /srv/fuseki/databases/skosmos-x
+11. systemctl start fuseki varnish
+12. rm -r /srv/fuseki/databases/skosmos-y
+13. Følg protokoll for manuell oppdatering av det individuelle vokabularet for å bygge opp ny tekstindeks
 
 ## Protokoll for manuell oppdatering av vokabularet
 ### Realfagstermer
@@ -61,14 +62,15 @@ Realfagstermer er ikke i produksjon lenger og KAN IKKE OPPDATERES LENGER. Følge
 2. cd /srv/vocabs/realfag && source /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit fuseki
 
 ### Humord
-Dette er for Humord. Du skal IKKE gjøre følgende med Realfagstermer, den prosedyren er like ovenfor. Her: Erstatt {*VOKABULAR*} med et eksisterende vokabular iflg mappestrukturen. _SUDO_:
-1. rm /srv/vocabs/humord/dist/humord.complete.ttl
-2. cd /srv/vocabs/humord/ && /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
-3. systemctl restart varnish
+Dette er for Humord. Du skal IKKE gjøre følgende med Realfagstermer, den prosedyren er like ovenfor.
+1. sudo su (om ikke allerede)
+2. rm /srv/vocabs/humord/dist/humord.complete.ttl
+3. cd /srv/vocabs/humord/ && /srv/vocabs/fuseki-env/bin/activate && /opt/apache-jena-fuseki-4.6.1/.local/bin/poetry run doit
+4. systemctl restart varnish
 
 ### DDC (WDNO)
 *Dewey Decimal System*, eller WebDewey på norsk. Data ligger hos Pansoft i Tyskland, og oppdatering av denne feiler reeeelativt ofte. Om det skjer: gi den et par dager på å oppdatere seg, ellers kan man sende mail til dem eller Vibeke.
-1. sudo su
+1. sudo su (om ikke allerede)
 2. cd /srv/vocabs/ddc/ && /srv/vocabs/fuseki-env/bin/activate && python3 wdno2fuseki.py all
 
 ## Grunnleggende informasjon
