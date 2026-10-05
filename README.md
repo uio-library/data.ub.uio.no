@@ -9,7 +9,7 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 
 ### Skosmos-vokabular oppdateres ikke
 - Kildematerialet til Humord oppdateres hver morgen. Dewey skal også gjøre dette, men underveis kan det oppstå feil og det krever mer tålmodighet enn Humord. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
-- Slett /srv/vocabs/{vokabular}/dist/{vokabular ...}.complete.ttl og kjør poetry run doit på nytt. Da blir det laget nytt output fra eksisterende kildemateriale. Dette er protokoll for manuell oppdatering.
+- Følg [Protokoll for manuell oppdatering av vokabularet](#protokoll-for-manuell-oppdatering-av-vokabularet).
 - IKKE SLETT NOE ANNET FRA /srv/.
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
