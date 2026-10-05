@@ -92,7 +92,8 @@ Skosmos er avhengig av:
 - en haug andre Python-bibliotek
 - Varnish
 - Server hos SIKT (IP-begrenset, autentisering med passord, Bibsys)
-- Server hos WebDewey (IP-begrenset, Tyskland)
+- Server hos Pansoft (IP-begrenset, Tyskland)
+- Python3
 
 Du må under ingen omstendigheter erstatte data_ub_tasks eller Roald3 med mindre du vet hva du driver med. Bruk utgavene som er her. Du må heller **ikke** slette src-mappen under vokabularene uten å kopiere denne først.
 
