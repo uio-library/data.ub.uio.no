@@ -34,7 +34,7 @@ Legg til språkkoden i dicten som ligger nær toppen.
 2. systemctl restart fuseki
 3. systemctl restart varnish
 4. journalctl -f (se etter feil)
-5. er det feil med rettighetene? fuseki:ub-utv | 775 | 
+5. er det feil med rettighetene? For VOKABULARENE: fuseki:ub-utv|775|var_t. For mappene fuseki og Skosmos: fuseki:apache|755|httpd_sys_rw_content_t.
 
 #### Løsningen over fungerte ikke
 Ring Dan Michael.
