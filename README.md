@@ -14,18 +14,18 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 
 ### Skosmos viser noe á la *vocabulary could not be loaded* på rosa bakgrunn og laster ikke vokabular
 - Sjekk at det er diskplass (*df -h*) i /etc/, /var/ (spesielt loggfiler), /srv/, /usr/; Dersom en partisjon er >99% full, slett søppel til vi er nede på ~60%. **Deretter, start om httpd, fuseki, varnish** (systemctl restart ...).
-- OBS: Dersom /srv/ er full, følg protokoll for rens av Fuseki-databasen under.
-- Kjør poetry run doit for vokabularet, deretter systemctl restart varnish.
-- Sjekk httpd-regler for endringer
-- Sjekk at fuseki-brukeren fortsatt har rettigheter på mappene
+- OBS: Dersom /srv/ er full, følg [protokoll for rens av Fuseki](#protokoll-for-rens-av-fuseki). IKKE SLETT TILFELDIGE TING FRA /SRV/.
+- Følg [Protokoll for manuell oppdatering av vokabularet](#protokoll-for-manuell-oppdatering-av-vokabularet).
+- Sjekk httpd-regler for endringer.
+- Sjekk at fuseki-brukeren fortsatt har rettigheter på alle mappene.
   
 ### /srv/ er full fordi Fuseki er blitt T Y K K
-- Følg protokoll for rens av Fuseki-databasen under.
+- Følg [protokoll for rens av Fuseki](#protokoll-for-rens-av-fuseki)
 
 ### Skosmos viser ikke et språk
 vim ..site-packages/roald/adapters/marc21.py
 
-Legg til språkkoden under linje 648.
+Legg til språkkoden _under_ linje 648.
 
 Legg til språkkoden i dicten som ligger nær toppen.
 
