@@ -67,7 +67,7 @@ Dette er for Humord. Du skal IKKE gjøre følgende med Realfagstermer, den prose
 3. systemctl restart varnish
 
 ### DDC (WDNO)
-*Dewey Decimal System*, eller WebDewey på norsk. Data ligger hos Pansoft i Tyskland, og oppdatering av denne feiler ofte. Pansoft virker ikke som de har veldig god kontroll. Gi den et par dager på å oppdatere seg, ellers kan man sende mail til dem eller Vibeke.
+*Dewey Decimal System*, eller WebDewey på norsk. Data ligger hos Pansoft i Tyskland, og oppdatering av denne feiler reeeelativt ofte. Om det skjer: gi den et par dager på å oppdatere seg, ellers kan man sende mail til dem eller Vibeke.
 1. sudo su
 2. cd /srv/vocabs/ddc/ && /srv/vocabs/fuseki-env/bin/activate && python3 wdno2fuseki.py all
 
