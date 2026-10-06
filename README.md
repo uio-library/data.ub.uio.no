@@ -3,6 +3,21 @@ data.ub.uio.no er der vi kjører Skosmos. Tidligere, på RHEL7, kjørte denne p�
 
 Under finner du grunnleggende informasjon om installasjonen og hvordan man feilsøker.
 
+## Skosmos
+Skosmos er grensesnittet.
+
+## Fuseki
+Fuseki er en såkalt trippeldatabase som er laget for å holde på data i RDF. Det er databasen bak Skosmos
+
+## Varnish
+Varnish er en *kæsj* (eng.: "cache") som mellomlagrer nettsider. Den sparer MYE trafikk ved å servere klienter med kæsja utgaver av Skosmos etter at en side er blitt lastet én gang av en vilkårlig klient. Kæsjen tømmes når Varnish startes om (systemctl restart varnish).
+
+## Vokabularene og CCMapper
+Vokabularene lages og lagres i Alma. Dette har vist seg å være utilstrekkelig for visning, men også for dataformatering for inntak i programmet CCMapper. CCMapper er et program som nå driftes av Pansoft Tyskland. Her programmerer emneordsgruppen relasjoner mellom Humord og Dewey. Vi importerer data fra CCMapper til vår DDC/WDNO... og eksporterer data *til* CCMapper. Ødelegges noe i skriptene til Humord blir CCMapper ødelagt óg. Null press.
+
+## Alma -> RDF
+Vokabularene ligger i Alma, og derfor MARC21. MARC21 er ikke RDF. Dan Michael lagde i sin tid flere store skript som omformer MARC21 til RDF med mappings fra Realfagstermer og Dewey samt sjekk av hver eneste term. I dag har jeg (Loke) ansvar for disse. Fordi ting er som de er må disse skriptene driftes ad infinitum. Skriptene er avhengige av Roald (modernisert av Dan Michael), MC2Skos (DM) og data_ub_tasks (DM). Jeg har flerret opp og sydd sammen mange av skriptene slik at de fungerer nokså godt i dag.
+
 ## Feilsøking
 ### "Mystisk" feilmelding på mail med lang ID som ikke er Humord-ID
 Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: 
