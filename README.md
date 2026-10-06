@@ -7,7 +7,7 @@ Under finner du grunnleggende informasjon om installasjonen og hvordan man feils
 ### "Mystisk" feilmelding på mail med lang ID som ikke er Humord-ID
 Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke finner ut av. Dette skyldes vanligvis at det er lagt inn en veldig lang, ikke korrekt ID istedenfor Humord-ID i en eller flere poster. Da er prosedyren: 
 1. vim /srv/vocabs/humord/src/humord.complete.xml
-2. Søk etter den lange IDen (?string) og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele posten og send til dem på mail.
+2. Søk etter den lange IDen (vim: ?string) og gi dem posten(e) der den IDen opptrer. Kopier gjerne hele posten og send til dem på mail.
 3. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
 
 ### Skosmos-vokabular oppdateres ikke
@@ -74,7 +74,7 @@ Dette er for Humord. Du skal IKKE gjøre følgende med Realfagstermer, den prose
 ### DDC (WDNO)
 *Dewey Decimal System*, eller WebDewey på norsk. Data ligger hos Pansoft i Tyskland, og oppdatering av denne feiler reeeelativt ofte. Om det skjer: gi den et par dager på å oppdatere seg, ellers kan man sende mail til dem eller Vibeke.
 1. sudo su (om ikke allerede)
-2. cd /srv/vocabs/ddc/ && /srv/vocabs/fuseki-env/bin/activate && python3 wdno2fuseki.py all
+2. cd /srv/vocabs/ddc/ && /srv/vocabs/fuseki-env/bin/activate && python3 WDNO2.py all
 
 ## Grunnleggende informasjon
 Det aller meste av vokabularene ligger under /srv/vocabs. Selve Skosmos ligger litt spredt, men hovedsakelig under /srv/. Data for Humord er XML fra SFTP-server hos Bibsys/SIKT, denne oppdateres hver morgen. Data for WDNO WebDewey hentes fra Tyskland, ikke i XML. Når dataene er hentet inn blir de tungt bearbeidet av et sammensurium av skript skapt av Dan Michael. Koden fungerer ganske godt så lenge man ikke rører den. Dette gjelder data_ub_tasks ("generiske" (ikke egentlig) jobber for Skosmos), hvert sitt vokabulars skript, *og* Roald3. Prosessen er omfattende og emneordsgruppen beror på at systemet fungerer og rapporterer feil.
