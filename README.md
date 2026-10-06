@@ -33,14 +33,12 @@ Legg til språkkoden _under_ linje 648.
 Legg til språkkoden i dicten som ligger nær toppen.
 
 ### Skosmos er helt borte eller løsningen(e) over fungerte ikke
-1. systemctl restart httpd
-2. systemctl restart fuseki
-3. systemctl restart varnish
-4. journalctl -f (se etter feil)
-5. er det feil med rettighetene? For VOKABULARENE: fuseki:ub-utv|775|var_t. For mappene fuseki og Skosmos: fuseki:apache|755|httpd_sys_rw_content_t.
+1. systemctl restart httpd fuseki varnish
+2. journalctl -f (se etter feil)
+3. er det feil med rettighetene? For VOKABULARENE: fuseki:ub-utv|775|var_t. For mappene fuseki og Skosmos: fuseki:apache|755|httpd_sys_rw_content_t.
 
 #### Løsningen over fungerte ikke
-Ring Dan Michael.
+~~Ring Dan Michael~~ Gratulerer, du har funnet en ny utfordring som er din å løse!
 
 ## Protokoll for rens av Fuseki
 Følgende brukes stort sett når det er oppbygning av søppel i Fuseki-tekstindeksen. Dette bygges opp hver eneste gang vokabularene oppdateres. Den raskeste metoden for å komme unna dette er å erstatte databasen med en kopi av seg selv. Ja, mappene heter skosmos-x og skosmos-y: jeg bruker symlenking for å la oss 'hot-swappe' mappene. Selv om vi ikke egentlig gjør det 'hot'.
