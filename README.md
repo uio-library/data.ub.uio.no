@@ -11,7 +11,7 @@ Det har hendt at skriptet sender en feil med en lang ID som emneordsgruppen ikke
 3. Ikke kjør oppdatering, Bibsys pusher ikke oppdateringer før neste morgen.
 
 ### Skosmos-vokabular oppdateres ikke
-- Kildematerialet til Humord oppdateres hver morgen. Dewey skal også gjøre dette, men underveis kan det oppstå feil og det krever mer tålmodighet enn Humord. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering.
+- Kildematerialet til Humord oppdateres hver morgen. Dewey skal også gjøre dette, men underveis kan det oppstå feil og det krever mer tålmodighet enn Humord. Man kan ikke importere nytt kildemateriale før neste morgen uansett hvor mange ganger man kjører oppdatering. Realfagstermer er lagt ned og oppdateres aldri mer.
 - Følg [Protokoll for manuell oppdatering av vokabularet](#protokoll-for-manuell-oppdatering-av-vokabularet).
 - IKKE SLETT NOE ANNET FRA /srv/.
 
